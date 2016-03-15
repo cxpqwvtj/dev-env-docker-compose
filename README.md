@@ -17,3 +17,15 @@
 - Rocket.Chat(MongoDB)
 - Kibana(ElasticSearch/fluentd)
 
+## URL
+
+- プロジェクト名をコンテキストパスとする
+- 各サービスのURLは以下の予定
+  - redmine
+  - svn
+  - jenkins
+  - gitlab
+  - rocketchat
+  - kibana
+
+e.g)http(s)://hostname/projectname/redmine
