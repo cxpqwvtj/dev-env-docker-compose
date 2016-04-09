@@ -9,10 +9,11 @@ services:
 #      - logvolume01:/var/log
     links:
 #      - gitlab
-#      - redmine
+      - redmine
 #      - jenkins
 #      - rocketchat
-      - kibana
+#      - kibana
+      - ldap
     volumes:
       - ./proxy/config/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./proxy/html:/usr/share/nginx/html:ro
@@ -104,65 +105,65 @@ services:
 # Redmine
 #####################################################
 
-#  redmine-postgresql:
-#    image: sameersbn/postgresql:9.4-17
-#    environment:
-#      - DB_USER=redmine
-#      - DB_PASS=password
-#      - DB_NAME=redmine_production
-##    volumes:
-##      - /srv/docker/redmine/postgresql:/var/lib/postgresql
-#
-#  redmine:
-#    image: sameersbn/redmine:3.2.1-2
-#    links:
-#      - redmine-postgresql:postgresql
-#    environment:
-#      - DB_TYPE=postgres
-#      - DB_HOST=postgresql
-#      - DB_PORT=5432
-#      - DB_USER=redmine
-#      - DB_PASS=password
-#      - DB_NAME=redmine_production
-#
-#      - TZ=Asia/Tokyo
-#
-#      - REDMINE_PORT=10081
-##       - REDMINE_HOST=192.168.55.44
-#      - REDMINE_HTTPS=false
-#      - REDMINE_RELATIVE_URL_ROOT=/redmine
-#      - REDMINE_SECRET_TOKEN=
-#
-#      - REDMINE_SUDO_MODE_ENABLED=false
-#      - REDMINE_SUDO_MODE_TIMEOUT=15
-#
-#      - REDMINE_CONCURRENT_UPLOADS=2
-#
-#      - REDMINE_BACKUP_SCHEDULE=
-#      - REDMINE_BACKUP_EXPIRY=
-#      - REDMINE_BACKUP_TIME=
-#
-#      - SMTP_ENABLED=false
-#      - SMTP_METHOD=smtp
-#      - SMTP_DOMAIN=www.example.com
-#      - SMTP_HOST=smtp.gmail.com
-#      - SMTP_PORT=587
-#      - SMTP_USER=mailer@example.com
-#      - SMTP_PASS=password
-#      - SMTP_STARTTLS=true
-#      - SMTP_AUTHENTICATION=:login
-#
-#      - IMAP_ENABLED=false
-#      - IMAP_HOST=imap.gmail.com
-#      - IMAP_PORT=993
-#      - IMAP_USER=mailer@example.com
-#      - IMAP_PASS=password
-#      - IMAP_SSL=true
-#      - IMAP_INTERVAL=30
-#    ports:
-#      - "10081:80"
-##    volumes:
-##      - /srv/docker/redmine/redmine:/home/redmine/data
+  redmine-postgresql:
+    image: sameersbn/postgresql:9.4-17
+    environment:
+      - DB_USER=redmine
+      - DB_PASS=password
+      - DB_NAME=redmine_production
+#    volumes:
+#      - /srv/docker/redmine/postgresql:/var/lib/postgresql
+
+  redmine:
+    image: sameersbn/redmine:3.2.1-2
+    links:
+      - redmine-postgresql:postgresql
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=postgresql
+      - DB_PORT=5432
+      - DB_USER=redmine
+      - DB_PASS=password
+      - DB_NAME=redmine_production
+
+      - TZ=Asia/Tokyo
+
+      - REDMINE_PORT=10081
+#       - REDMINE_HOST=192.168.55.44
+      - REDMINE_HTTPS=false
+      - REDMINE_RELATIVE_URL_ROOT=/redmine
+      - REDMINE_SECRET_TOKEN=
+
+      - REDMINE_SUDO_MODE_ENABLED=false
+      - REDMINE_SUDO_MODE_TIMEOUT=15
+
+      - REDMINE_CONCURRENT_UPLOADS=2
+
+      - REDMINE_BACKUP_SCHEDULE=
+      - REDMINE_BACKUP_EXPIRY=
+      - REDMINE_BACKUP_TIME=
+
+      - SMTP_ENABLED=false
+      - SMTP_METHOD=smtp
+      - SMTP_DOMAIN=www.example.com
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=mailer@example.com
+      - SMTP_PASS=password
+      - SMTP_STARTTLS=true
+      - SMTP_AUTHENTICATION=:login
+
+      - IMAP_ENABLED=false
+      - IMAP_HOST=imap.gmail.com
+      - IMAP_PORT=993
+      - IMAP_USER=mailer@example.com
+      - IMAP_PASS=password
+      - IMAP_SSL=true
+      - IMAP_INTERVAL=30
+    ports:
+      - "10081:80"
+#    volumes:
+#      - /srv/docker/redmine/redmine:/home/redmine/data
 
 #####################################################
 # Jenkins
@@ -212,11 +213,11 @@ services:
 #####################################################
 # Elasticsearch + fluentd + Kibana
 #####################################################
-  elasticsearch:
-    image: elasticsearch:2.3.1
-    volumes_from:
-      - log-analyze-data
-
+#  elasticsearch:
+#    image: elasticsearch:2.3.1
+#    volumes_from:
+#      - log-analyze-data
+#
 #  fluent:
 #    build:
 #      context: ./fluent
@@ -226,21 +227,31 @@ services:
 #      - FLUENTD_CONF=fluent.conf
 #    volumes:
 #      - ./fluent:/fluentd/etc:ro
+#
+#  kibana:
+#    image: kibana:4.5.0
+#    depends_on:
+#      - elasticsearch
+#    links:
+#      - elasticsearch:elasticsearch
+##    environment:
+##      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
+#    volumes:
+#      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
+#    ports:
+#      - 5601:5601
+#
+#  log-analyze-data:
+#    image: busybox:1.24.2
+#    volumes:
+#      - /usr/share/elasticsearch/data
 
-  kibana:
-    image: kibana:4.5.0
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch:elasticsearch
-#    environment:
-#      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
-    volumes:
-      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
-    ports:
-      - 5601:5601
-
-  log-analyze-data:
-    image: busybox:1.24.2
-    volumes:
-      - /usr/share/elasticsearch/data
+#####################################################
+# LDAP
+#####################################################
+  ldap:
+    image: sharaku/ldap:latest
+    environment:
+      - LDAP_DOMAIN=example.com
+      - LDAP_ADMIN_PWD=password
+      - LDAP_ORGANISATION="docker.io Example Inc."
