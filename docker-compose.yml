@@ -1,16 +1,21 @@
 version: '2'
 services:
-#  proxy:
-#    build: ./proxy
-#    ports:
-#      - "80:80"
+  proxy:
+    image: nginx:1.9.14
+    ports:
+      - "80:80"
 #    volumes:
 #      - .:/code
 #      - logvolume01:/var/log
-#    links:
+    links:
 #      - gitlab
 #      - redmine
 #      - jenkins
+#      - rocketchat
+      - kibana
+    volumes:
+      - ./proxy/conf:/etc/nginx
+      - ./proxy/html:/usr/share/nginx/html
 #    redis:
 #      image: redis
 #    volumes:
@@ -172,31 +177,66 @@ services:
 #    ports:
 #      - "10082:8080"
 
-  rocketchat:
-    image: rocketchat/rocket.chat:0.25.0
+#####################################################
+# Rocket.Chat
+#####################################################
+#  rocketchat:
+#    image: rocketchat/rocket.chat:0.25.0
+#    environment:
+#      - PORT=3000
+#      - ROOT_URL=http://localhost:3000/
+#      - MONGO_URL=mongodb://mongodb:27017/rocketchat
+#    links:
+#      - rocketchat-mongodb:mongodb
+#    ports:
+#      - 3000:3000
+#    volumes_from:
+#      - rocketchat-data
+#
+#  rocketchat-mongodb:
+#    image: mongo:3.2.4
+#    ports:
+#      - 27017
+#    volumes_from:
+#      - rocketchat-data
+#
+#  rocketchat-data:
+#    image: busybox:1.24.2
+#    volumes:
+#      # mongodb
+#      - /data/db
+#      - /data/configdb
+#      # rocketchat
+#      - /app/uploads
+
+#####################################################
+# Elasticsearch + fluentd + Kibana
+#####################################################
+  elasticsearch:
+    image: elasticsearch:2.3.1
+    volumes_from:
+      - log-analyze-data
+
+  fluent:
+    build:
+      context: ./fluent
+    depends_on:
+      - elasticsearch
     environment:
-      - PORT=3000
-      - ROOT_URL=http://localhost:3000/
-      - MONGO_URL=mongodb://mongodb:27017/rocketchat
+      - FLUENTD_CONF=fluent.conf
+    volumes:
+      - ./fluent:/fluentd/etc
+
+  kibana:
+    image: kibana:4.5.0
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
     links:
-      - rocketchat-mongodb:mongodb
-    ports:
-      - 3000:3000
-    volumes_from:
-      - rocketchat-data
+      - elasticsearch:elasticsearch
 
-  rocketchat-mongodb:
-    image: mongo:3.2.4
-    ports:
-      - 27017
-    volumes_from:
-      - rocketchat-data
-
-  rocketchat-data:
+  log-analyze-data:
     image: busybox:1.24.2
     volumes:
-      # mongodb
-      - /data/db
-      - /data/configdb
-      # rocketchat
-      - /app/uploads
+      - /usr/share/elasticsearch/data
