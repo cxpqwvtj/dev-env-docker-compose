@@ -9,11 +9,11 @@ services:
 #      - logvolume01:/var/log
     links:
 #      - gitlab
-      - redmine
+#      - redmine
 #      - jenkins
       - rocketchat
 #      - kibana
-      - ldap
+#      - ldap
     volumes:
       - ./proxy/config/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./proxy/config/conf.d:/etc/nginx/conf.d:ro
@@ -106,69 +106,69 @@ services:
 # Redmine
 #####################################################
 
-  redmine-postgresql:
-    image: sameersbn/postgresql:9.4-17
-    environment:
-      - DB_USER=redmine
-      - DB_PASS=password
-      - DB_NAME=redmine_production
-#    volumes:
-#      - /srv/docker/redmine/postgresql:/var/lib/postgresql
-
-  redmine:
-    image: sameersbn/redmine:3.2.1-2
-    depends_on:
-      - redmine-postgresql
-      - ldap
-    links:
-      - redmine-postgresql:postgresql
-      - ldap:ldap
-    environment:
-      - DB_TYPE=postgres
-      - DB_HOST=postgresql
-      - DB_PORT=5432
-      - DB_USER=redmine
-      - DB_PASS=password
-      - DB_NAME=redmine_production
-
-      - TZ=Asia/Tokyo
-
-      - REDMINE_PORT=10081
-#       - REDMINE_HOST=192.168.55.44
-      - REDMINE_HTTPS=false
-      - REDMINE_RELATIVE_URL_ROOT=
-      - REDMINE_SECRET_TOKEN=
-
-      - REDMINE_SUDO_MODE_ENABLED=false
-      - REDMINE_SUDO_MODE_TIMEOUT=15
-
-      - REDMINE_CONCURRENT_UPLOADS=2
-
-      - REDMINE_BACKUP_SCHEDULE=
-      - REDMINE_BACKUP_EXPIRY=
-      - REDMINE_BACKUP_TIME=
-
-      - SMTP_ENABLED=false
-      - SMTP_METHOD=smtp
-      - SMTP_DOMAIN=www.example.com
-      - SMTP_HOST=smtp.gmail.com
-      - SMTP_PORT=587
-      - SMTP_USER=mailer@example.com
-      - SMTP_PASS=password
-      - SMTP_STARTTLS=true
-      - SMTP_AUTHENTICATION=:login
-
-      - IMAP_ENABLED=false
-      - IMAP_HOST=imap.gmail.com
-      - IMAP_PORT=993
-      - IMAP_USER=mailer@example.com
-      - IMAP_PASS=password
-      - IMAP_SSL=true
-      - IMAP_INTERVAL=30
-    ports:
-      - "10081:80"
-#    volumes:
-#      - /srv/docker/redmine/redmine:/home/redmine/data
+#  redmine-postgresql:
+#    image: sameersbn/postgresql:9.4-17
+#    environment:
+#      - DB_USER=redmine
+#      - DB_PASS=password
+#      - DB_NAME=redmine_production
+##    volumes:
+##      - /srv/docker/redmine/postgresql:/var/lib/postgresql
+#
+#  redmine:
+#    image: sameersbn/redmine:3.2.1-2
+#    depends_on:
+#      - redmine-postgresql
+#      - ldap
+#    links:
+#      - redmine-postgresql:postgresql
+#      - ldap:ldap
+#    environment:
+#      - DB_TYPE=postgres
+#      - DB_HOST=postgresql
+#      - DB_PORT=5432
+#      - DB_USER=redmine
+#      - DB_PASS=password
+#      - DB_NAME=redmine_production
+#
+#      - TZ=Asia/Tokyo
+#
+#      - REDMINE_PORT=10081
+##       - REDMINE_HOST=192.168.55.44
+#      - REDMINE_HTTPS=false
+#      - REDMINE_RELATIVE_URL_ROOT=
+#      - REDMINE_SECRET_TOKEN=
+#
+#      - REDMINE_SUDO_MODE_ENABLED=false
+#      - REDMINE_SUDO_MODE_TIMEOUT=15
+#
+#      - REDMINE_CONCURRENT_UPLOADS=2
+#
+#      - REDMINE_BACKUP_SCHEDULE=
+#      - REDMINE_BACKUP_EXPIRY=
+#      - REDMINE_BACKUP_TIME=
+#
+#      - SMTP_ENABLED=false
+#      - SMTP_METHOD=smtp
+#      - SMTP_DOMAIN=www.example.com
+#      - SMTP_HOST=smtp.gmail.com
+#      - SMTP_PORT=587
+#      - SMTP_USER=mailer@example.com
+#      - SMTP_PASS=password
+#      - SMTP_STARTTLS=true
+#      - SMTP_AUTHENTICATION=:login
+#
+#      - IMAP_ENABLED=false
+#      - IMAP_HOST=imap.gmail.com
+#      - IMAP_PORT=993
+#      - IMAP_USER=mailer@example.com
+#      - IMAP_PASS=password
+#      - IMAP_SSL=true
+#      - IMAP_INTERVAL=30
+#    ports:
+#      - "10081:80"
+##    volumes:
+##      - /srv/docker/redmine/redmine:/home/redmine/data
 
 #####################################################
 # Jenkins
@@ -187,21 +187,19 @@ services:
 # Rocket.Chat
 #####################################################
   rocketchat:
-    image: rocketchat/rocket.chat:0.25.0
+    image: rocketchat/rocket.chat:0.26.0
     environment:
       - PORT=3000
-      - ROOT_URL=http://rocketchat.portal.localhost
+      - ROOT_URL=http://localhost/rocketchat
       - MONGO_URL=mongodb://mongodb:27017/rocketchat
     links:
       - rocketchat-mongodb:mongodb
-      - ldap:ldap
+#      - ldap:ldap
     volumes_from:
       - rocketchat-data
 
   rocketchat-mongodb:
     image: mongo:3.2.4
-    ports:
-      - 27017
     volumes_from:
       - rocketchat-data
 
@@ -253,9 +251,9 @@ services:
 #####################################################
 # LDAP
 #####################################################
-  ldap:
-    image: sharaku/ldap:latest
-    environment:
-      - LDAP_DOMAIN=example.com
-      - LDAP_ADMIN_PWD=password
-      - LDAP_ORGANISATION="docker.io Example Inc."
+#  ldap:
+#    image: sharaku/ldap:latest
+#    environment:
+#      - LDAP_DOMAIN=example.com
+#      - LDAP_ADMIN_PWD=password
+#      - LDAP_ORGANISATION="docker.io Example Inc."
