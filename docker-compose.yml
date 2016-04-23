@@ -11,8 +11,8 @@ services:
 #      - gitlab
 #      - redmine
 #      - jenkins
-      - rocketchat
-#      - kibana
+#      - rocketchat
+      - kibana
 #      - ldap
     volumes:
       - ./proxy/config/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -186,67 +186,87 @@ services:
 #####################################################
 # Rocket.Chat
 #####################################################
-  rocketchat:
-    image: rocketchat/rocket.chat:0.26.0
-    environment:
-      - PORT=3000
-      - ROOT_URL=http://localhost/rocketchat
-      - MONGO_URL=mongodb://mongodb:27017/rocketchat
-    links:
-      - rocketchat-mongodb:mongodb
-#      - ldap:ldap
-    volumes_from:
-      - rocketchat-data
-
-  rocketchat-mongodb:
-    image: mongo:3.2.4
-    volumes_from:
-      - rocketchat-data
-
-  rocketchat-data:
-    image: busybox:1.24.2
-    volumes:
-      # mongodb
-      - /data/db
-      - /data/configdb
-      # rocketchat
-      - /app/uploads
-
-#####################################################
-# Elasticsearch + fluentd + Kibana
-#####################################################
-#  elasticsearch:
-#    image: elasticsearch:2.3.1
-#    volumes_from:
-#      - log-analyze-data
-#
-#  fluent:
-#    build:
-#      context: ./fluent
-#    depends_on:
-#      - elasticsearch
+#  rocketchat:
+#    image: rocketchat/rocket.chat:0.26.0
 #    environment:
-#      - FLUENTD_CONF=fluent.conf
-#    volumes:
-#      - ./fluent:/fluentd/etc:ro
-#
-#  kibana:
-#    image: kibana:4.5.0
-#    depends_on:
-#      - elasticsearch
+#      - PORT=3000
+#      - ROOT_URL=http://localhost/rocketchat
+#      - MONGO_URL=mongodb://mongodb:27017/rocketchat
 #    links:
-#      - elasticsearch:elasticsearch
-##    environment:
-##      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
-#    volumes:
-#      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
-#    ports:
-#      - 5601:5601
+#      - rocketchat-mongodb:mongodb
+##      - ldap:ldap
+#    volumes_from:
+#      - rocketchat-data
 #
-#  log-analyze-data:
+#  rocketchat-mongodb:
+#    image: mongo:3.2.4
+#    volumes_from:
+#      - rocketchat-data
+#
+#  rocketchat-data:
 #    image: busybox:1.24.2
 #    volumes:
-#      - /usr/share/elasticsearch/data
+#      # mongodb
+#      - /data/db
+#      - /data/configdb
+#      # rocketchat
+#      - /app/uploads
+
+#####################################################
+# Elasticsearch + fluentd + Kibana + Topbeat
+#####################################################
+  elasticsearch:
+    image: elasticsearch:5.0.0-alpha1
+    volumes_from:
+      - log-analyze-data
+    ports:
+      - 9200:9200
+
+  fluent:
+    build:
+      context: ./fluent
+    depends_on:
+      - elasticsearch
+    environment:
+      - FLUENTD_CONF=fluent.conf
+    volumes:
+      - ./fluent:/fluentd/etc:ro
+
+  kibana:
+    image: kibana:5.0.0-alpha1
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch:elasticsearch
+#    environment:
+#      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
+    volumes:
+      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
+    ports:
+      - 5601:5601
+
+  topbeat:
+    build:
+      context: ./topbeat
+    depends_on:
+      - elasticsearch
+    pid: "host"
+    links:
+      - elasticsearch:elasticsearch
+    environment:
+      - HOST=elasticsearch
+      - PORT=9200
+      - CPU_PER_CORE=false
+      - INDEX=topbeat
+      - PROCS=.*
+      - PERIOD=10
+      - SHIPPER_NAME=
+      - SHIPPER_TAGS=
+
+  log-analyze-data:
+    image: busybox:1.24.2
+    volumes:
+      - /usr/share/elasticsearch/data
 
 #####################################################
 # LDAP
