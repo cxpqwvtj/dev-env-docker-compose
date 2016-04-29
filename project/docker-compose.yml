@@ -1,153 +1,137 @@
 version: '2'
 services:
-  proxy:
-    image: nginx:1.9.14
-    ports:
-      - "80:80"
-#    volumes:
-#      - .:/code
-#      - logvolume01:/var/log
-    links:
-#      - gitlab
-#      - redmine
-#      - jenkins
-#      - rocketchat
-      - kibana
-#      - ldap
-    volumes:
-      - ./proxy/config/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./proxy/config/conf.d:/etc/nginx/conf.d:ro
-      - ./proxy/html:/usr/share/nginx/html:ro
-#    redis:
-#      image: redis
-#    volumes:
-#      logvolume01: {}
-
 #####################################################
 # GitLab
 #####################################################
+  gitlab-mysql:
+    restart: always
+    image: sameersbn/mysql:latest
+    environment:
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+#    volumes:
+#      - /srv/docker/gitlab/postgresql:/var/lib/postgresql
+    networks:
+      - backbone
 
-#  gitlab-mysql:
+  gitlab:
 #    restart: always
-#    image: sameersbn/mysql:latest
-#    environment:
-#      - DB_USER=gitlab
-#      - DB_PASS=password
-#      - DB_NAME=gitlabhq_production
-##    volumes:
-##      - /srv/docker/gitlab/postgresql:/var/lib/postgresql
-#
-#  gitlab:
-##    restart: always
-#    image: sameersbn/gitlab:8.6.3
-#    links:
-#      - gitlab-redis:redisio
-#      - gitlab-mysql:mysql
-#    environment:
-#      - DB_TYPE=mysql
-#      - DB_HOST=mysql
-#      - DB_PORT=3306
-#      - DB_USER=gitlab
-#      - DB_PASS=password
-#      - DB_NAME=gitlabhq_production
-#
-#      - REDIS_HOST=redisio
-#      - REDIS_PORT=6379
-#
-#      - DEBUG=false
-#      - TZ=Asia/Tokyo
-#      - GITLAB_TIMEZONE=Tokyo
-#
-#      - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
-#
-##      - GITLAB_HOST=192.168.55.44
-#      - GITLAB_PORT=8080
-#      - GITLAB_SSH_PORT=10022
-#      - GITLAB_RELATIVE_URL_ROOT=/gitlab
-#
-#      - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
-#      - GITLAB_NOTIFY_PUSHER=false
-#
-#      - GITLAB_EMAIL=notifications@example.com
-#      - GITLAB_EMAIL_REPLY_TO=noreply@example.com
-#      - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com
-#
-#      - GITLAB_BACKUP_SCHEDULE=daily
-#      - GITLAB_BACKUP_TIME=01:00
-#
-#      - SMTP_ENABLED=false
-#      - SMTP_DOMAIN=www.example.com
-#      - SMTP_HOST=smtp.gmail.com
-#      - SMTP_PORT=587
-#      - SMTP_USER=mailer@example.com
-#      - SMTP_PASS=password
-#      - SMTP_STARTTLS=true
-#      - SMTP_AUTHENTICATION=login
-#
-#      - IMAP_ENABLED=false
-#      - IMAP_HOST=imap.gmail.com
-#      - IMAP_PORT=993
-#      - IMAP_USER=mailer@example.com
-#      - IMAP_PASS=password
-#      - IMAP_SSL=true
-#      - IMAP_STARTTLS=false
+    image: sameersbn/gitlab:8.6.3
+    links:
+      - gitlab-redis:redisio
+      - gitlab-mysql:mysql
+    environment:
+      - DB_TYPE=mysql
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_USER=gitlab
+      - DB_PASS=password
+      - DB_NAME=gitlabhq_production
+
+      - REDIS_HOST=redisio
+      - REDIS_PORT=6379
+
+      - DEBUG=false
+      - TZ=Asia/Tokyo
+      - GITLAB_TIMEZONE=Tokyo
+
+      - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
+
+#      - GITLAB_HOST=192.168.55.44
+      - GITLAB_PORT=8080
+      - GITLAB_SSH_PORT=10022
+      - GITLAB_RELATIVE_URL_ROOT=/portal/gitlab
+
+      - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
+      - GITLAB_NOTIFY_PUSHER=false
+
+      - GITLAB_EMAIL=notifications@example.com
+      - GITLAB_EMAIL_REPLY_TO=noreply@example.com
+      - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com
+
+      - GITLAB_BACKUP_SCHEDULE=daily
+      - GITLAB_BACKUP_TIME=01:00
+
+      - SMTP_ENABLED=false
+      - SMTP_DOMAIN=www.example.com
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=mailer@example.com
+      - SMTP_PASS=password
+      - SMTP_STARTTLS=true
+      - SMTP_AUTHENTICATION=login
+
+      - IMAP_ENABLED=false
+      - IMAP_HOST=imap.gmail.com
+      - IMAP_PORT=993
+      - IMAP_USER=mailer@example.com
+      - IMAP_PASS=password
+      - IMAP_SSL=true
+      - IMAP_STARTTLS=false
 #    ports:
 #      - "10080:80"
-##    volumes:
-##      - /srv/docker/gitlab/gitlab:/home/git/data
-#
-#  gitlab-redis:
-#    restart: always
-#    image: sameersbn/redis:latest
-##    volumes:
-##      - /srv/docker/gitlab/redis:/var/lib/redis
+#    volumes:
+#      - /srv/docker/gitlab/gitlab:/home/git/data
+    networks:
+      - reverse_proxy
+      - backbone
+
+  gitlab-redis:
+    restart: always
+    image: sameersbn/redis:latest
+#    volumes:
+#      - /srv/docker/gitlab/redis:/var/lib/redis
+    networks:
+      - backbone
 
 #####################################################
 # Redmine
 #####################################################
+  redmine-postgresql:
+    image: sameersbn/postgresql:9.4-17
+    environment:
+      - DB_USER=redmine
+      - DB_PASS=password
+      - DB_NAME=redmine_production
+#    volumes:
+#      - /srv/docker/redmine/postgresql:/var/lib/postgresql
+    networks:
+      - backbone
 
-#  redmine-postgresql:
-#    image: sameersbn/postgresql:9.4-17
-#    environment:
-#      - DB_USER=redmine
-#      - DB_PASS=password
-#      - DB_NAME=redmine_production
-##    volumes:
-##      - /srv/docker/redmine/postgresql:/var/lib/postgresql
-#
-#  redmine:
-#    image: sameersbn/redmine:3.2.1-2
-#    depends_on:
-#      - redmine-postgresql
-#      - ldap
-#    links:
-#      - redmine-postgresql:postgresql
-#      - ldap:ldap
-#    environment:
-#      - DB_TYPE=postgres
-#      - DB_HOST=postgresql
-#      - DB_PORT=5432
-#      - DB_USER=redmine
-#      - DB_PASS=password
-#      - DB_NAME=redmine_production
-#
-#      - TZ=Asia/Tokyo
-#
-#      - REDMINE_PORT=10081
-##       - REDMINE_HOST=192.168.55.44
-#      - REDMINE_HTTPS=false
-#      - REDMINE_RELATIVE_URL_ROOT=
-#      - REDMINE_SECRET_TOKEN=
-#
-#      - REDMINE_SUDO_MODE_ENABLED=false
-#      - REDMINE_SUDO_MODE_TIMEOUT=15
-#
-#      - REDMINE_CONCURRENT_UPLOADS=2
-#
-#      - REDMINE_BACKUP_SCHEDULE=
-#      - REDMINE_BACKUP_EXPIRY=
-#      - REDMINE_BACKUP_TIME=
-#
+  redmine:
+    image: sameersbn/redmine:3.2.1-2
+    depends_on:
+      - redmine-postgresql
+    links:
+      - redmine-postgresql:postgresql
+    external_links:
+      - openldap:openldap
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=postgresql
+      - DB_PORT=5432
+      - DB_USER=redmine
+      - DB_PASS=password
+      - DB_NAME=redmine_production
+
+      - TZ=Asia/Tokyo
+
+      - REDMINE_PORT=10081
+#       - REDMINE_HOST=192.168.55.44
+      - REDMINE_HTTPS=false
+      - REDMINE_RELATIVE_URL_ROOT=/portal/redmine
+      - REDMINE_SECRET_TOKEN=
+
+      - REDMINE_SUDO_MODE_ENABLED=false
+      - REDMINE_SUDO_MODE_TIMEOUT=15
+
+      - REDMINE_CONCURRENT_UPLOADS=2
+
+      - REDMINE_BACKUP_SCHEDULE=
+      - REDMINE_BACKUP_EXPIRY=
+      - REDMINE_BACKUP_TIME=
+
 #      - SMTP_ENABLED=false
 #      - SMTP_METHOD=smtp
 #      - SMTP_DOMAIN=www.example.com
@@ -165,10 +149,13 @@ services:
 #      - IMAP_PASS=password
 #      - IMAP_SSL=true
 #      - IMAP_INTERVAL=30
-#    ports:
-#      - "10081:80"
-##    volumes:
-##      - /srv/docker/redmine/redmine:/home/redmine/data
+    ports:
+      - "10081:80"
+#    volumes:
+#      - /srv/docker/redmine/redmine:/home/redmine/data
+    networks:
+      - reverse_proxy
+      - backbone
 
 #####################################################
 # Jenkins
@@ -186,87 +173,92 @@ services:
 #####################################################
 # Rocket.Chat
 #####################################################
-#  rocketchat:
-#    image: rocketchat/rocket.chat:0.26.0
-#    environment:
-#      - PORT=3000
-#      - ROOT_URL=http://localhost/rocketchat
-#      - MONGO_URL=mongodb://mongodb:27017/rocketchat
-#    links:
-#      - rocketchat-mongodb:mongodb
-##      - ldap:ldap
-#    volumes_from:
-#      - rocketchat-data
-#
-#  rocketchat-mongodb:
-#    image: mongo:3.2.4
-#    volumes_from:
-#      - rocketchat-data
-#
-#  rocketchat-data:
-#    image: busybox:1.24.2
-#    volumes:
-#      # mongodb
-#      - /data/db
-#      - /data/configdb
-#      # rocketchat
-#      - /app/uploads
+  rocketchat:
+    image: rocketchat/rocket.chat:0.28.0
+    environment:
+      - PORT=3000
+      - ROOT_URL=http://localhost/portal/rocketchat
+      - MONGO_URL=mongodb://mongodb:27017/rocketchat
+    links:
+      - rocketchat-mongodb:mongodb
+#      - ldap:ldap
+    volumes_from:
+      - rocketchat-data
+    networks:
+      - reverse_proxy
+      - backbone
+
+  rocketchat-mongodb:
+    image: mongo:3.2.4
+    volumes_from:
+      - rocketchat-data
+    networks:
+      - backbone
+
+  rocketchat-data:
+    image: busybox:1.24.2
+    volumes:
+      # mongodb
+      - /data/db
+      - /data/configdb
+      # rocketchat
+      - /app/uploads
 
 #####################################################
 # Elasticsearch + fluentd + Kibana + Topbeat
 #####################################################
-  elasticsearch:
-    image: elasticsearch:5.0.0-alpha1
-    volumes_from:
-      - log-analyze-data
-    ports:
-      - 9200:9200
-
-  fluent:
-    build:
-      context: ./fluent
-    depends_on:
-      - elasticsearch
-    environment:
-      - FLUENTD_CONF=fluent.conf
-    volumes:
-      - ./fluent:/fluentd/etc:ro
-
-  kibana:
-    image: kibana:5.0.0-alpha1
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch:elasticsearch
+#  elasticsearch:
+#    image: elasticsearch:5.0.0-alpha1
+#    volumes_from:
+#      - log-analyze-data
+#    ports:
+#      - 9200:9200
+#
+#  fluent:
+#    build:
+#      context: ./fluent
+#    depends_on:
+#      - elasticsearch
 #    environment:
-#      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
-    volumes:
-      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
-    ports:
-      - 5601:5601
-
-  topbeat:
-    build:
-      context: ./topbeat
-    depends_on:
-      - elasticsearch
-    pid: "host"
-    links:
-      - elasticsearch:elasticsearch
-    environment:
-      - HOST=elasticsearch
-      - PORT=9200
-      - CPU_PER_CORE=false
-      - INDEX=topbeat
-      - PROCS=.*
-      - PERIOD=10
-      - SHIPPER_NAME=
-      - SHIPPER_TAGS=
-
-  log-analyze-data:
-    image: busybox:1.24.2
-    volumes:
-      - /usr/share/elasticsearch/data
+#      - FLUENTD_CONF=fluent.conf
+#    volumes:
+#      - ./fluent:/fluentd/etc:ro
+#
+#  kibana:
+#    image: kibana:5.0.0-alpha1
+#    depends_on:
+#      - elasticsearch
+#    links:
+#      - elasticsearch:elasticsearch
+##    environment:
+##      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
+#    volumes:
+#      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
+#    ports:
+#      - 5601:5601
+#
+#  topbeat:
+#    build:
+#      context: ./topbeat
+#    depends_on:
+#      - elasticsearch
+#    pid: "host"
+#    links:
+#      - elasticsearch:elasticsearch
+#    environment:
+#      - HOST=elasticsearch
+#      - PORT=9200
+#      - CPU_PER_CORE=false
+#      - INDEX=topbeat
+#      - PROCS=.*
+#      - PERIOD=10
+#      - SHIPPER_NAME=
+#      - SHIPPER_TAGS=
+#
+#  log-analyze-data:
+#    image: busybox:1.24.2
+#    volumes:
+#      - /usr/share/elasticsearch/data
 
 #####################################################
 # LDAP
@@ -277,3 +269,11 @@ services:
 #      - LDAP_DOMAIN=example.com
 #      - LDAP_ADMIN_PWD=password
 #      - LDAP_ORGANISATION="docker.io Example Inc."
+
+networks:
+  reverse_proxy:
+    external:
+      name: reverse_proxy
+  backbone:
+    external:
+      name: backbone
