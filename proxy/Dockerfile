@@ -2,7 +2,8 @@
 FROM nginx:latest
 
 # 設定ファイルをコピー
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/
 
 # HTMLファイルをコピー
-COPY index.html /usr/share/nginx/html/index.html
+COPY index.html /usr/share/nginx/html/
+COPY aaa.html /usr/share/nginx/html/
