@@ -4,8 +4,8 @@ services:
     image: dinkel/openldap:2.4.40
     environment:
       - SLAPD_PASSWORD=mysecretpassword
-      - SLAPD_DOMAIN=ldap.example.org
-      - SLAPD_ORGANIZATION="Example Inc."
+      - SLAPD_DOMAIN=example.com
+      - SLAPD_ORGANIZATION=Example Inc.
       - SLAPD_FORCE_RECONFIGURE=false
     expose:
       - "389"
@@ -20,16 +20,14 @@ services:
       - /etc/ldap
       - /var/lib/ldap
 
-  phpldapadmin:
-    image: dinkel/phpldapadmin:latest
+  pocci-account-center:
+    image: xpfriend/pocci-account-center:1.0.11
     environment:
-      - LDAP_SERVER_HOST=openldap
-      - LDAP_SERVER_PORT=389
-      - UNIQUE_ATTRS=mail,uid,uidNumbers
+      - LDAP_URL=ldap://openldap
+      - LDAP_BASE_DN=dc=example,dc=com
+      - USER_APP_PORT=9898
     ports:
-      - 8080:80
-    links:
-      - openldap:openldap
+      - 9898:9898
     networks:
       - reverse_proxy
       - backbone
