@@ -29,3 +29,28 @@
   - kibana
 
 e.g)http(s)://hostname/projectname/redmine
+
+## 起動
+
+ネットワーク作成
+
+```
+docker network create reverse_proxy
+docker network create backbone
+```
+
+LDAP起動
+
+```
+cd openldap
+docker-compose up -d
+cd ..
+```
+
+プロジェクト毎のサービス起動(仮)
+
+```
+cd project
+docker-compose up -d
+cd ..
+```
