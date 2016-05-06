@@ -10,11 +10,12 @@
 
 ### プロジェクト毎に立ち上げる
 
-- Redmine(MySQL)
+- Redmine(PostgreSQL)
 - Subversion
 - Jenkins
-- GitLab
+- GitLab(PostgreSQL)
 - Rocket.Chat(MongoDB)
+- SonarQube(PostgreSQL)
 - Kibana(ElasticSearch/fluentd)
 
 ## URL
