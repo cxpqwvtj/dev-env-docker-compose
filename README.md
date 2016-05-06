@@ -11,10 +11,11 @@
 ### プロジェクト毎に立ち上げる
 
 - Redmine(PostgreSQL)
-- Subversion
-- Jenkins
 - GitLab(PostgreSQL)
+- ownCloud
 - Rocket.Chat(MongoDB)
+- Jenkins
+- Subversion
 - SonarQube(PostgreSQL)
 - Kibana(ElasticSearch/fluentd)
 
@@ -23,10 +24,11 @@
 - プロジェクト名をコンテキストパスとする
 - 各サービスのURLは以下の予定
   - redmine
-  - svn
-  - jenkins
   - gitlab
+  - owncloud
   - rocketchat
+  - jenkins
+  - svn
   - kibana
 
 e.g)http(s)://hostname/projectname/redmine
@@ -40,18 +42,18 @@ docker network create reverse_proxy
 docker network create backbone
 ```
 
-LDAP起動
-
-```
-cd openldap
-docker-compose up -d
-cd ..
-```
-
 プロジェクト毎のサービス起動(仮)
 
 ```
 cd project
+docker-compose up -d
+cd ..
+```
+
+リバースプロキシ起動
+
+```
+cd proxy
 docker-compose up -d
 cd ..
 ```
