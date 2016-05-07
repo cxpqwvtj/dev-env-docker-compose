@@ -6,4 +6,5 @@ COPY nginx.conf /etc/nginx/
 
 # HTMLファイルをコピー
 COPY index.html /usr/share/nginx/html/
-COPY aaa.html /usr/share/nginx/html/
+RUN mkdir /usr/share/nginx/html/learning
+COPY redmine.html /usr/share/nginx/html/learning

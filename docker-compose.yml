@@ -4,67 +4,66 @@ services:
 ###########################################
 #                REDMINE                  #
 ###########################################
-#
-#  mysql:
-#  #  restart: always
-#    image: sameersbn/mysql:latest
-#    environment:
-#      - DB_USER=redmine
-#      - DB_PASS=password
-#      - DB_NAME=redmine_production
-#  #  volumes:
-#  #    - /srv/docker/redmine/mysql:/var/lib/mysql
-#
-#  redmine:
-#  #  restart: always
-#    image: sameersbn/redmine:latest
-#    links:
-#      - mysql:mysql
-#    environment:
-#      - DB_HOST=mysql
-#      - DB_POST=5431
-#      - DB_USER=redmine
-#      - DB_PASS=password
-#
-#      - TZ=Asia/Kolkata
-#
-#      - REDMINE_PORT=10081
-#      - REDMINE_HOST=localhost
-#      - REDMINE_HTTPS=false
-#      - REDMINE_RELATIVE_URL_ROOT=
-#      - REDMINE_SECRET_TOKEN=
-#
-#      - REDMINE_SUDO_MODE_ENABLED=false
-#      - REDMINE_SUDO_MODE_TIMEOUT=15
-#
-#      - REDMINE_CONCURRENT_UPLOADS=2
-#
-#      - REDMINE_BACKUP_SCHEDULE=
-#      - REDMINE_BACKUP_EXPIRY=
-#      - REDMINE_BACKUP_TIME=
-#
-#      - SMTP_ENABLED=false
-#      - SMTP_METHOD=smtp
-#      - SMTP_DOMAIN=www.example.com
-#      - SMTP_HOST=smtp.gmail.com
-#      - SMTP_PORT=587
-#      - SMTP_USER=mailer@example.com
-#      - SMTP_PASS=password
-#      - SMTP_STARTTLS=true
-#      - SMTP_AUTHENTICATION=:login
-#
-#      - IMAP_ENABLED=false
-#      - IMAP_HOST=imap.gmail.com
-#      - IMAP_PORT=993
-#      - IMAP_USER=mailer@example.com
-#      - IMAP_PASS=password
-#      - IMAP_SSL=true
-#      - IMAP_INTERVAL=30
-#
-#    ports:
-#      - "10081:80"
-#  #  volumes:
-#  #    - /srv/docker/redmine/redmine:/home/redmine/data
+
+  mysql:
+  #  restart: always
+    image: sameersbn/mysql:latest
+    environment:
+      - DB_USER=redmine
+      - DB_PASS=password
+      - DB_NAME=redmine_production
+  #  volumes:
+  #    - /srv/docker/redmine/mysql:/var/lib/mysql
+
+  redmine:
+  #  restart: always
+    image: sameersbn/redmine:latest
+    links:
+      - mysql:mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_POST=5431
+      - DB_USER=redmine
+      - DB_PASS=password
+
+      - TZ=Asia/Kolkata
+
+  #    - REDMINE_PORT=10081
+  #    - REDMINE_HOST=local.ababcdcd.me
+      - REDMINE_HTTPS=false
+      - REDMINE_RELATIVE_URL_ROOT=
+      - REDMINE_SECRET_TOKEN=
+
+      - REDMINE_SUDO_MODE_ENABLED=false
+      - REDMINE_SUDO_MODE_TIMEOUT=15
+
+      - REDMINE_CONCURRENT_UPLOADS=2
+
+      - REDMINE_BACKUP_SCHEDULE=
+      - REDMINE_BACKUP_EXPIRY=
+      - REDMINE_BACKUP_TIME=
+
+      - SMTP_ENABLED=false
+      - SMTP_METHOD=smtp
+      - SMTP_DOMAIN=www.example.com
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=mailer@example.com
+      - SMTP_PASS=password
+      - SMTP_STARTTLS=true
+      - SMTP_AUTHENTICATION=:login
+
+      - IMAP_ENABLED=false
+      - IMAP_HOST=imap.gmail.com
+      - IMAP_PORT=993
+      - IMAP_USER=mailer@example.com
+      - IMAP_PASS=password
+      - IMAP_SSL=true
+      - IMAP_INTERVAL=30
+  #  ports:
+  #    - "10081:80"
+  #  volumes:
+  #    - /srv/docker/redmine/redmine:/home/redmine/data
 
 ###########################################
 #                 GITLAB                  #
@@ -87,9 +86,6 @@ services:
 #    links:
 #      - redis:redisio
 #      - postgresql:postgresql
-#    ports:
-#      - "10080:80"
-#      - "10022:22"
 #    environment:
 #      - DB_HOST=postgresql
 #      - DB_POST=5432
@@ -104,8 +100,8 @@ services:
 #  
 #      - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
 #  
-#      - GITLAB_HOST=localhost
-#      - GITLAB_PORT=10080
+#  #    - GITLAB_HOST=local.ababcdcd.me
+#  #    - GITLAB_PORT=10080
 #      - GITLAB_SSH_PORT=10022
 #      - GITLAB_RELATIVE_URL_ROOT=
 #  
@@ -135,6 +131,9 @@ services:
 #      - IMAP_PASS=password
 #      - IMAP_SSL=true
 #      - IMAP_STARTTLS=false
+#  #  ports:
+#  #    - "10080:80"
+#  #    - "10022:22"
 #  #  volumes:
 #  #    - /srv/docker/gitlab/gitlab:/home/git/data
 #  
@@ -151,22 +150,23 @@ services:
 #  jenkins:
 #    image: jenkins:latest
 #    environment:
-#      - JENKINS_HOST=localhost
+#      - JENKINS_HOST=local.ababcdcd.me
 #      - JENKINS_OPTS=--prefix=/jenkins
-#      - JENKINS_PORT=10082
-#    ports:
-#      - "10082:8080"
+#  #    - JENKINS_PORT=10082
+#  #  ports:
+#  #    - "10082:8080"
 #  #  volumes:
 #  #    - /srv/docker/jenkins/jenkins:/var/jenkins_home
 
 ###########################################
 #                 NGINX                   #
 ###########################################
+
   proxy:
     build: proxy
-  #  links:
+    links:
   #    - gitlab:gitlab
-  #    - redmine:redmine
+      - redmine:redmine
   #    - jenkins:jenkins
     ports:
       - "80:80"
