@@ -18,9 +18,14 @@ services:
   gitlab:
 #    restart: always
     image: sameersbn/gitlab:8.6.3
+    depends_on:
+      - gitlab-mysql
+      - gitlab-redis
     links:
       - gitlab-redis:redisio
       - gitlab-mysql:mysql
+    external_links:
+      - ldap_openldap_1:openldap
     environment:
       - DB_TYPE=mysql
       - DB_HOST=mysql
@@ -42,6 +47,8 @@ services:
       - GITLAB_PORT=8080
       - GITLAB_SSH_PORT=10022
       - GITLAB_RELATIVE_URL_ROOT=/portal/gitlab
+
+      - GITLAB_ROOT_PASSWORD=5iveL!fe
 
       - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
       - GITLAB_NOTIFY_PUSHER=false
@@ -69,6 +76,18 @@ services:
       - IMAP_PASS=password
       - IMAP_SSL=true
       - IMAP_STARTTLS=false
+
+      - LDAP_ENABLED=true
+      - LDAP_LABEL=LDAP
+      - LDAP_HOST=openldap
+      - LDAP_PORT=389
+      - LDAP_UID=cn
+      - LDAP_METHOD=plain
+      - LDAP_PASS=mysecretpassword
+      - LDAP_BLOCK_AUTO_CREATED_USERS=false
+      - LDAP_ACTIVE_DIRECTORY=false
+      - LDAP_BASE=dc=example,dc=com
+      - LDAP_USER_FILTER=
 #    ports:
 #      - "10080:80"
 #    volumes:
@@ -106,7 +125,7 @@ services:
     links:
       - redmine-postgresql:postgresql
     external_links:
-      - openldap:openldap
+      - ldap_openldap_1:openldap
     environment:
       - DB_TYPE=postgres
       - DB_HOST=postgresql
@@ -169,10 +188,13 @@ services:
 #      - JENKINS_HOST=192.168.55.44
       - JENKINS_OPTS=--prefix=/portal/jenkins
 #      - JENKINS_PORT=10082
+    external_links:
+      - ldap_openldap_1:openldap
     expose:
       - 8080
     networks:
       - reverse_proxy
+      - backbone
 
 #####################################################
 # Rocket.Chat
@@ -185,7 +207,8 @@ services:
       - MONGO_URL=mongodb://mongodb:27017/rocketchat
     links:
       - rocketchat-mongodb:mongodb
-#      - ldap:ldap
+    external_links:
+      - ldap_openldap_1:openldap
     volumes_from:
       - rocketchat-data
     networks:
@@ -207,6 +230,8 @@ services:
       - /data/configdb
       # rocketchat
       - /app/uploads
+    networks:
+      - backbone
 
 #####################################################
 # Elasticsearch + fluentd + Kibana + Topbeat
@@ -271,17 +296,22 @@ services:
     image: cxpqwvtj/owncloud-ldap:9.0.1-apache
     environment:
       - OWNCLOUD_BASE_PATH=/portal/owncloud
+    external_links:
+      - ldap_openldap_1:openldap
     expose:
       - 80
     volumes_from:
       - owncloud-data
     networks:
       - reverse_proxy
+      - backbone
 
   owncloud-data:
     image: busybox:1.24.2
     volumes:
       - /var/www/html
+    networks:
+      - backbone
 
 networks:
   reverse_proxy:
