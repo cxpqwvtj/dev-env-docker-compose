@@ -42,7 +42,15 @@ docker network create reverse_proxy
 docker network create backbone
 ```
 
-プロジェクト毎のサービス起動(仮)
+アカウント管理用コンテナ起動
+
+```
+cd ldap
+docker-compose up -d
+cd ..
+```
+
+プロジェクト毎のサービス起動
 
 ```
 cd project
