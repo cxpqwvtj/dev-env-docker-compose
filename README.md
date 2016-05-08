@@ -88,19 +88,29 @@ cd ..
 - Admin管理画面から <kbd>Settings</kbd> <kbd>Sign-in Restrictions</kbd>
   - <kbd>Sign-up enabled</kbd>のチェックを外す
 
+### Jenkins
+
+- <kbd>Jenkinsの管理</kbd> <kbd>グローバルセキュリティの設定</kbd> <kbd>セキュリティを有効化</kbd>にチェック <kbd>LDAP</kbd>にチェック
+  - <kbd>サーバー</kbd> openldap
+  - <kbd>root DN</kbd> dc=example,dc=com
+  - <kbd>Display Name LDAP attribute</kbd> displayName
+  - <kbd>Email Address LDAP attribute</kbd> mail
+
 ### Rocket.Chat
 
 - adminでログイン(初回ログインユーザーがadmin権限となる)
+  - 有効なドメインのメールアドレスでないとダメ？
+  - LDAPで登録したメールアドレスが被るとログイン失敗するので注意
 - 管理者画面を開く
 - LDAP選択
-  - Enable:True
-  - Host:openldap
-  - Domain Base:dc=example,dc=com
-  - Domain Search Object Class:inetOrgPerson
-  - Username Field:#{sn} #{givenName}
-  - Sync Data:True
-  - Sync User Avatar:False
-  - User Data Field Map:{"cn":"name", "mail":"email"}
+  - <kbd>Enable</kbd> True
+  - <kbd>Host</kbd> openldap
+  - <kbd>Domain Base</kbd> dc=example,dc=com
+  - <kbd>Domain Search Object Class</kbd> inetOrgPerson
+  - <kbd>Username Field</kbd> #{sn} #{givenName}
+  - <kbd>Sync Data</kbd> True
+  - <kbd>Sync User Avatar</kbd> False
+  - <kbd>User Data Field Map</kbd> {"cn":"name", "mail":"email"}
 - LDAP認証のみにする
   - <kbd>Accounts</kbd> <kbd>Registration Form</kbd> を <kbd>Disabled</kbd> に変更
 
@@ -111,13 +121,10 @@ cd ..
 - <kbd>無効なアプリ</kbd> <kbd>LDAP user and group backend</kbd> を <kbd>有効</kbd> にする
 - 右上メニューから <kbd>管理</kbd> 画面を開く
 - LDAP設定を行う
-  - ホスト:openldap
-  - ベースDN:dc=example,dc=com
-
-### Jenkins
-
-- <kbd>Jenkinsの管理</kbd> <kbd>グローバルセキュリティの設定</kbd> <kbd>セキュリティを有効化</kbd>にチェック <kbd>LDAP</kbd>にチェック
-  - サーバー:openldap
-  - root DN:dc=example,dc=com
-  - Display Name LDAP attribute:displayName
-  - Email Address LDAP attribute:mail
+  - <kbd>サーバー</kbd>タグ
+    - <kbd>ホスト</kbd> openldap
+    - <kbd>ベースDN</kbd> dc=example,dc=com
+  - <kbd>ログイン属性</kbd>タグ
+    - <kbd>LDAP/ADユーザー名</kbd> チェック無し
+    - <kbd>その他の属性</kbd> cn
+- 右上メニューから<kbd>ユーザー</kbd>を選択し、LDAPに登録したユーザーが表示されれば成功
