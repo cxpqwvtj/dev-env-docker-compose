@@ -48,6 +48,8 @@ services:
       - GITLAB_SSH_PORT=10022
       - GITLAB_RELATIVE_URL_ROOT=/portal/gitlab
 
+      - GITLAB_ROOT_PASSWORD=5iveL!fe
+
       - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
       - GITLAB_NOTIFY_PUSHER=false
 
@@ -81,6 +83,7 @@ services:
       - LDAP_PORT=389
       - LDAP_UID=cn
       - LDAP_METHOD=plain
+      - LDAP_PASS=mysecretpassword
       - LDAP_BLOCK_AUTO_CREATED_USERS=false
       - LDAP_ACTIVE_DIRECTORY=false
       - LDAP_BASE=dc=example,dc=com

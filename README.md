@@ -58,7 +58,7 @@ docker-compose up -d
 cd ..
 ```
 
-## 各サービスのLDAP設定
+## 各サービスの初期設定
 
 ### Redmine
 
@@ -76,8 +76,7 @@ cd ..
 
 ### GitLab
 
-- 任意のパスワード設定
-- root:入力したパスワード でログイン
+- root:5iveL!fe でログイン
 - Admin管理画面から <kbd>Settings</kbd> <kbd>Sign-in Restrictions</kbd>
   - <kbd>Sign-up enabled</kbd>のチェックを外す
 
