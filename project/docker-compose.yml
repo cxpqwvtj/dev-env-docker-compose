@@ -304,6 +304,7 @@ services:
       - owncloud-data
     networks:
       - reverse_proxy
+      - backbone
 
   owncloud-data:
     image: busybox:1.24.2

@@ -96,6 +96,16 @@ cd ..
 - LDAP認証のみにする
   - <kbd>Accounts</kbd> <kbd>Registration Form</kbd> を <kbd>Disabled</kbd> に変更
 
+### ownCloud
+
+- adminでログイン(初回ログインユーザーがadmin権限となる)
+- 左上のメニューから、<kbd>アプリ</kbd> を選択
+- <kbd>無効なアプリ</kbd> <kbd>LDAP user and group backend</kbd> を <kbd>有効</kbd> にする
+- 右上メニューから <kbd>管理</kbd> 画面を開く
+- LDAP設定を行う
+  - ホスト:openldap
+  - ベースDN:dc=example,dc=com
+
 ### Jenkins
 
 - <kbd>Jenkinsの管理</kbd> <kbd>グローバルセキュリティの設定</kbd> <kbd>セキュリティを有効化</kbd>にチェック <kbd>LDAP</kbd>にチェック
