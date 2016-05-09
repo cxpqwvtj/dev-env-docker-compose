@@ -200,7 +200,7 @@ services:
 # Rocket.Chat
 #####################################################
   rocketchat:
-    image: rocketchat/rocket.chat:0.28.0
+    image: rocketchat/rocket.chat:0.29.0
     environment:
       - PORT=3000
       - ROOT_URL=http://localhost/portal/rocketchat
