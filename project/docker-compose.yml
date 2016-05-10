@@ -205,6 +205,7 @@ services:
       - PORT=3000
       - ROOT_URL=http://localhost/portal/rocketchat
       - MONGO_URL=mongodb://mongodb:27017/rocketchat
+      - ADMIN_PASS=admin
     links:
       - rocketchat-mongodb:mongodb
     external_links:
