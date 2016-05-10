@@ -98,21 +98,23 @@ cd ..
 
 ### Rocket.Chat
 
-- adminでログイン(初回ログインユーザーがadmin権限となる)
-  - 有効なドメインのメールアドレスでないとダメ？
-  - LDAPで登録したメールアドレスが被るとログイン失敗するので注意
+- admin:adminでログイン
 - 管理者画面を開く
 - LDAP選択
-  - <kbd>Enable</kbd> True
-  - <kbd>Host</kbd> openldap
-  - <kbd>Domain Base</kbd> dc=example,dc=com
-  - <kbd>Domain Search Object Class</kbd> inetOrgPerson
-  - <kbd>Username Field</kbd> #{sn} #{givenName}
-  - <kbd>Sync Data</kbd> True
-  - <kbd>Sync User Avatar</kbd> False
-  - <kbd>User Data Field Map</kbd> {"cn":"name", "mail":"email"}
+  - <kbd>有効にする</kbd> True
+  - <kbd>ホスト</kbd> openldap
+  - <kbd>ポート</kbd> 389
+  - <kbd>ドメインベース</kbd> dc=example,dc=com
+  - <kbd>ドメイン検索ユーザー</kbd> 空白
+  - <kbd>ドメイン検索ユーザー ID</kbd> cn,mail
+  - <kbd>ドメイン検索の objectclass</kbd> inetOrgPerson
+  - <kbd>ドメイン検索の objectCategory</kbd> 空白
+  - <kbd>ユーザー名フィールド</kbd> #{sn}#{givenName}
+  - <kbd>データを同期する</kbd> はい
+  - <kbd>ユーザーのアバターを同期する</kbd> いいえ
+  - <kbd>ユーザーデータのフィールドマップ</kbd> {"cn":"name", "mail":"email"}
 - LDAP認証のみにする
-  - <kbd>Accounts</kbd> <kbd>Registration Form</kbd> を <kbd>Disabled</kbd> に変更
+  - <kbd>アカウント</kbd> <kbd>Registration</kbd> をEXPAND <kbd>登録フォームへのアクセス</kbd> を <kbd>無効</kbd> に変更
 
 ### ownCloud
 
