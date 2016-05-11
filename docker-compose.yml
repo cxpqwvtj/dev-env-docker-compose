@@ -12,12 +12,13 @@ services:
       - DB_USER=redmine
       - DB_PASS=password
       - DB_NAME=redmine_production
-    volumes:
-      - /srv/docker/redmine/mysql:/var/lib/mysql
+  #  volumes:
+  #    - /srv/docker/redmine/mysql:/var/lib/mysql
 
   redmine:
   #  restart: always
-    image: sameersbn/redmine:latest
+    build: redmine
+  #  image: sameersbn/redmine:latest
     links:
       - mysql:mysql
     environment:
@@ -62,8 +63,8 @@ services:
       - IMAP_INTERVAL=30
   #  ports:
   #    - "10081:80"
-    volumes:
-      - /srv/docker/redmine/redmine:/home/redmine/data
+  #  volumes:
+  #    - /srv/docker/redmine/redmine:/home/redmine/data
 
 ###########################################
 #                 GITLAB                  #
@@ -146,18 +147,18 @@ services:
 ###########################################
 #                JENKINS                  #
 ###########################################
-
-  jenkins:
-  #  restart: always
-    image: jenkins:latest
-    environment:
-  #    - JENKINS_HOST=local.ababcdcd.me
-      - JENKINS_OPTS=--prefix=/jenkins
-  #    - JENKINS_PORT=10082
-  #  ports:
-  #    - "10082:8080"
-  #  volumes:
-  #    - /srv/docker/jenkins/jenkins:/var/jenkins_home
+#
+#  jenkins:
+#  #  restart: always
+#    image: jenkins:latest
+#    environment:
+#  #    - JENKINS_HOST=local.ababcdcd.me
+#      - JENKINS_OPTS=--prefix=/jenkins
+#  #    - JENKINS_PORT=10082
+#  #  ports:
+#  #    - "10082:8080"
+#  #  volumes:
+#  #    - /srv/docker/jenkins/jenkins:/var/jenkins_home
 
 ###########################################
 #                 NGINX                   #
