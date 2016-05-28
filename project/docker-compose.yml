@@ -183,7 +183,7 @@ services:
 #####################################################
 
   jenkins:
-    image: jenkins:1.651.1-alpine
+    image: jenkins:2.3-alpine
     environment:
 #      - JENKINS_HOST=192.168.55.44
       - JENKINS_OPTS=--prefix=/portal/jenkins
