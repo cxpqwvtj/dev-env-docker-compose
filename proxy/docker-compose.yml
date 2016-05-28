@@ -1,7 +1,7 @@
 version: '2'
 services:
   proxy:
-    image: nginx:1.9.15
+    image: nginx:1.11.0
     ports:
       - "80:80"
     external_links:

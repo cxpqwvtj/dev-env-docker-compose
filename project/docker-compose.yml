@@ -17,7 +17,7 @@ services:
 
   gitlab:
 #    restart: always
-    image: sameersbn/gitlab:8.6.3
+    image: sameersbn/gitlab:8.7.6
     depends_on:
       - gitlab-mysql
       - gitlab-redis
@@ -119,7 +119,7 @@ services:
       - backbone
 
   redmine:
-    image: sameersbn/redmine:3.2.1-2
+    image: sameersbn/redmine:3.2.1-6
     depends_on:
       - redmine-postgresql
     links:
@@ -200,7 +200,7 @@ services:
 # Rocket.Chat
 #####################################################
   rocketchat:
-    image: rocketchat/rocket.chat:0.29.0
+    image: rocket.chat:0.31.0
     environment:
       - PORT=3000
       - ROOT_URL=http://localhost/portal/rocketchat
