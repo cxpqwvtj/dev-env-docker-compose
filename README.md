@@ -123,10 +123,11 @@ cd ..
 - <kbd>無効なアプリ</kbd> <kbd>LDAP user and group backend</kbd> を <kbd>有効</kbd> にする
 - 右上メニューから <kbd>管理</kbd> 画面を開く
 - LDAP設定を行う
-  - <kbd>サーバー</kbd>タグ
+  - <kbd>サーバー</kbd>タブ
     - <kbd>ホスト</kbd> openldap
+    - <kbd>ポート</kbd> 389
     - <kbd>ベースDN</kbd> dc=example,dc=com
-  - <kbd>ログイン属性</kbd>タグ
+  - <kbd>ログイン属性</kbd>タブ
     - <kbd>LDAP/ADユーザー名</kbd> チェック無し
     - <kbd>その他の属性</kbd> cn
 - 右上メニューから<kbd>ユーザー</kbd>を選択し、LDAPに登録したユーザーが表示されれば成功

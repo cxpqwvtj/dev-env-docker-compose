@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://192.168.99.100/" />
+<title>ownCloud-LDAP setting</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ownCloud-LDAP setting</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/portal/owncloud/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=adminlogin</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=adminpass</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.primary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#closeWizard &gt; img.svg</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=h1.header-appname</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#apps-management &gt; a &gt; img.app-icon.svg</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=無効なアプリ</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#app-user_ldap &gt; input.enable</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=expand</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=管理</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ldap_host</td>
+	<td>openldap</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ldap_port</td>
+	<td>389</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ldap_base</td>
+	<td>dc=example,dc=com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=h2.save-cursor</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[9]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[9]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-id-3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[@type='button'])[16]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ui-multiselect-ldap_loginfilter_attributes-option-0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=expandDisplayName</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logout</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

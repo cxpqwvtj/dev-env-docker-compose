@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://192.168.99.100/" />
+<title>Redmine-LDAP setting</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Redmine-LDAP setting</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/portal/redmine</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=ログイン</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=管理</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=LDAP認証</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=新しい認証方式</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_name</td>
+	<td>LDAP</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_host</td>
+	<td>openldap</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_port</td>
+	<td>389</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_base_dn</td>
+	<td>dc=example,dc=com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=auth_source_onthefly_register</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_attr_login</td>
+	<td>cn</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_attr_firstname</td>
+	<td>sn</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_attr_lastname</td>
+	<td>givenName</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=auth_source_attr_mail</td>
+	<td>mail</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>
