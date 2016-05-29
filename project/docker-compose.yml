@@ -4,7 +4,7 @@ services:
 # GitLab
 #####################################################
   gitlab-mysql:
-    restart: always
+#    restart: always
     image: sameersbn/mysql:latest
     environment:
       - DB_USER=gitlab
@@ -97,7 +97,7 @@ services:
       - backbone
 
   gitlab-redis:
-    restart: always
+#    restart: always
     image: sameersbn/redis:latest
 #    volumes:
 #      - /srv/docker/gitlab/redis:/var/lib/redis
