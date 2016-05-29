@@ -104,6 +104,38 @@ services:
     networks:
       - backbone
 
+#  gitlab-kanban:
+#    #restart: always
+#    image: leanlabs/kanban:1.6.0
+#    environment:
+#      # URL on which Leanlabs Kanban will be reachable
+#      - KANBAN_SERVER_HOSTNAME=http://kanban.portal.localhost
+#      # This string is used to generate user auth tokens
+#      - KANBAN_SECURITY_SECRET=qwerty
+#      # Your GitLab host URL
+#      - KANBAN_GITLAB_URL=http://192.168.99.100/portal/gitlab
+#      # Your GitLab OAuth client ID
+#      - KANBAN_GITLAB_CLIENT=qwerty
+#      # Your GitLab OAuth client secret key
+#      - KANBAN_GITLAB_SECRET=qwerty
+#      # Wheter to enable sign up with user API token
+#      - KANBAN_ENABLE_SIGNUP=true
+#      # Redis server address - IP:PORT
+#      - KANBAN_REDIS_ADDR=redisio:6379
+#    links:
+#      - gitlab-kanban-redis:redisio
+#    networks:
+#      - reverse_proxy
+#      - backbone
+#    command: ./kanban server
+#
+#  gitlab-kanban-redis:
+#    image: leanlabs/redis:1.0.0
+#    networks:
+#      - backbone
+
+
+
 #####################################################
 # Redmine
 #####################################################
