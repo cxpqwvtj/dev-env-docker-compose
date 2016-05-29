@@ -3,9 +3,9 @@ services:
   openldap:
     image: dinkel/openldap:2.4.40
     environment:
-      - SLAPD_PASSWORD=mysecretpassword
-      - SLAPD_DOMAIN=example.com
-      - SLAPD_ORGANIZATION=Example Inc.
+      - SLAPD_PASSWORD=mysecretpassword #change-it
+      - SLAPD_DOMAIN=example.com #change-it
+      - SLAPD_ORGANIZATION=Example Inc. #change-it
       - SLAPD_FORCE_RECONFIGURE=false
     expose:
       - 389
@@ -29,7 +29,7 @@ services:
     environment:
       - APP_BASE_URL=/account
       - LDAP_URL=ldap://openldap
-      - LDAP_BASE_DN=dc=example,dc=com
+      - LDAP_BASE_DN=dc=example,dc=com #change-it
       - USER_APP_PORT=9898
     expose:
       - 9898

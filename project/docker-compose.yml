@@ -6,8 +6,8 @@ services:
   gitlab-postgresql:
 #    restart: always
     image: sameersbn/postgresql:9.4-21
-    volumes:
-      - /srv/docker/gitlab/postgresql:/var/lib/postgresql:Z
+#    volumes:
+#      - /srv/docker/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
       - DB_USER=gitlab
       - DB_PASS=password
@@ -42,7 +42,7 @@ services:
       - TZ=Asia/Tokyo
       - GITLAB_TIMEZONE=Tokyo
 
-      - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string
+      - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string #change-it
 
 #      - GITLAB_HOST=192.168.55.44
       - GITLAB_PORT=8080
@@ -54,9 +54,9 @@ services:
       - GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
       - GITLAB_NOTIFY_PUSHER=false
 
-      - GITLAB_EMAIL=notifications@example.com
-      - GITLAB_EMAIL_REPLY_TO=noreply@example.com
-      - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com
+      - GITLAB_EMAIL=notifications@example.com #change-it
+      - GITLAB_EMAIL_REPLY_TO=noreply@example.com #change-it
+      - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com #change-it
 
       - GITLAB_BACKUP_DIR=/home/git/data/backups
       - GITLAB_BACKUP_SCHEDULE=daily
@@ -85,10 +85,10 @@ services:
       - LDAP_PORT=389
       - LDAP_UID=cn
       - LDAP_METHOD=plain
-      - LDAP_PASS=mysecretpassword
+      - LDAP_PASS=mysecretpassword #change-it
       - LDAP_BLOCK_AUTO_CREATED_USERS=false
       - LDAP_ACTIVE_DIRECTORY=false
-      - LDAP_BASE=dc=example,dc=com
+      - LDAP_BASE=dc=example,dc=com #change-it
       - LDAP_USER_FILTER=
 #    ports:
 #      - "10080:80"
