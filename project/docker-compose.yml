@@ -3,15 +3,16 @@ services:
 #####################################################
 # GitLab
 #####################################################
-  gitlab-mysql:
+  gitlab-postgresql:
 #    restart: always
-    image: sameersbn/mysql:latest
+    image: sameersbn/postgresql:9.4-21
+    volumes:
+      - /srv/docker/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
       - DB_USER=gitlab
       - DB_PASS=password
       - DB_NAME=gitlabhq_production
-#    volumes:
-#      - /srv/docker/gitlab/postgresql:/var/lib/postgresql
+      - DB_EXTENSION=pg_trgm
     networks:
       - backbone
 
@@ -19,17 +20,17 @@ services:
 #    restart: always
     image: sameersbn/gitlab:8.7.6
     depends_on:
-      - gitlab-mysql
+      - gitlab-postgresql
       - gitlab-redis
     links:
       - gitlab-redis:redisio
-      - gitlab-mysql:mysql
+      - gitlab-postgresql:postgresql
     external_links:
       - ldap_openldap_1:openldap
     environment:
-      - DB_TYPE=mysql
-      - DB_HOST=mysql
-      - DB_PORT=3306
+      - DB_ADAPTER=postgresql
+      - DB_HOST=postgresql
+      - DB_PORT=5432
       - DB_USER=gitlab
       - DB_PASS=password
       - DB_NAME=gitlabhq_production
@@ -57,6 +58,7 @@ services:
       - GITLAB_EMAIL_REPLY_TO=noreply@example.com
       - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com
 
+      - GITLAB_BACKUP_DIR=/home/git/data/backups
       - GITLAB_BACKUP_SCHEDULE=daily
       - GITLAB_BACKUP_TIME=01:00
 
@@ -99,8 +101,10 @@ services:
   gitlab-redis:
 #    restart: always
     image: sameersbn/redis:latest
+    command:
+      - --loglevel warning
 #    volumes:
-#      - /srv/docker/gitlab/redis:/var/lib/redis
+#      - /srv/docker/gitlab/redis:/var/lib/redis:Z
     networks:
       - backbone
 
@@ -140,7 +144,7 @@ services:
 # Redmine
 #####################################################
   redmine-postgresql:
-    image: sameersbn/postgresql:9.4-17
+    image: sameersbn/postgresql:9.4-21
     environment:
       - DB_USER=redmine
       - DB_PASS=password
