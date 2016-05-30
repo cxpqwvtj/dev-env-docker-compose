@@ -183,9 +183,10 @@ services:
 
       - REDMINE_CONCURRENT_UPLOADS=2
 
-      - REDMINE_BACKUP_SCHEDULE=
-      - REDMINE_BACKUP_EXPIRY=
-      - REDMINE_BACKUP_TIME=
+      - REDMINE_BACKUPS_DIR=/home/redmine/data/backups
+      - REDMINE_BACKUP_SCHEDULE=daily
+      - REDMINE_BACKUP_EXPIRY=604800
+      - REDMINE_BACKUP_TIME=02:00
 
 #      - SMTP_ENABLED=false
 #      - SMTP_METHOD=smtp
