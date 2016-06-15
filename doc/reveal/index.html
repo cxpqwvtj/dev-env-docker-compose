@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown
+					data-separator="^\n>>>\n"
+					data-separator-vertical="^\n---\n"
+					data-separator-notes="^Note:">
+					<script type="text/template">
+## Re:ゼロから始める開発環境構築
+
+>>>
+
+## テーマ
+
+- 楽してチームで利用する開発環境を構築しよう
+
+>>>
+
+## 開発で利用するツール
+
+- 課題管理(Redmine)
+- 資材管理(Git)
+- 情報共有(Redmine Wiki)
+- コミュニケーションツール(Rocket.Chat)
+- レビュー管理(GitLab)
+
+>>>
+
+## これまで
+
+- サーバ用意
+- OSインストール
+- アプリインストール
+- 準備完了
+- アプリ起動。利用開始！
+
+>>>
+
+## これは問題なかった場合
+
+>>>
+
+## 問題があると...
+
+- サーバ用意
+- OSインストール
+- アプリインストール
+- 準備かんry..エラー？
+- はぁ？ミドルウェアのバージョンが違って動かない？
+- めんど...
+
+>>>
+
+## そうだ。Dockerにしよう
+
+>>>
+
+## Dockerを利用した場合
+
+- Dockerのインストール
+- コンテナ起動
+- 利用開始！
+
+>>>
+
+## プロジェクトのスタートアップ速度を上げよう
+					</script>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
