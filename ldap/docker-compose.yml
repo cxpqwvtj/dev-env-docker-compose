@@ -17,8 +17,8 @@ services:
   openldap-data:
     image: busybox:1.24.2
     volumes:
-      - /etc/ldap
-      - /var/lib/ldap
+      - ./data/etc/ldap:/etc/ldap
+      - ./data/var/lib/ldap:/var/lib/ldap
     networks:
       - backbone
 

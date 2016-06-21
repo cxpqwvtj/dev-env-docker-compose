@@ -4,10 +4,10 @@ services:
 # GitLab
 #####################################################
   gitlab-postgresql:
-#    restart: always
+    restart: always
     image: sameersbn/postgresql:9.4-21
-#    volumes:
-#      - /srv/docker/gitlab/postgresql:/var/lib/postgresql:Z
+    volumes:
+      - ./data/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
       - DB_USER=gitlab
       - DB_PASS=password
@@ -17,7 +17,7 @@ services:
       - backbone
 
   gitlab:
-#    restart: always
+    restart: always
     image: sameersbn/gitlab:8.7.6
     depends_on:
       - gitlab-postgresql
@@ -92,19 +92,19 @@ services:
       - LDAP_USER_FILTER=
 #    ports:
 #      - "10080:80"
-#    volumes:
-#      - /srv/docker/gitlab/gitlab:/home/git/data
+    volumes:
+      - /srv/docker/gitlab/gitlab:/home/git/data
     networks:
       - reverse_proxy
       - backbone
 
   gitlab-redis:
-#    restart: always
+    restart: always
     image: sameersbn/redis:latest
     command:
       - --loglevel warning
-#    volumes:
-#      - /srv/docker/gitlab/redis:/var/lib/redis:Z
+    volumes:
+      - ./data/gitlab/redis:/var/lib/redis:Z
     networks:
       - backbone
 
@@ -149,8 +149,8 @@ services:
       - DB_USER=redmine
       - DB_PASS=password
       - DB_NAME=redmine_production
-#    volumes:
-#      - /srv/docker/redmine/postgresql:/var/lib/postgresql
+    volumes:
+      - ./data/redmine/postgresql:/var/lib/postgresql
     networks:
       - backbone
 
@@ -209,8 +209,8 @@ services:
 #      - "80:80"
     expose:
       - 80
-#    volumes:
-#      - /srv/docker/redmine/redmine:/home/redmine/data
+    volumes:
+      - ./data/redmine/redmine:/home/redmine/data
     networks:
       - reverse_proxy
       - backbone
@@ -289,7 +289,7 @@ services:
 #    environment:
 #      - FLUENTD_CONF=fluent.conf
 #    volumes:
-#      - ./fluent:/fluentd/etc:ro
+#      - ./data/fluent:/fluentd/etc:ro
 #
 #  kibana:
 #    image: kibana:5.0.0-alpha1
@@ -300,7 +300,7 @@ services:
 ##    environment:
 ##      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
 #    volumes:
-#      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
+#      - ./data/kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
 #    ports:
 #      - 5601:5601
 #
