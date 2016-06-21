@@ -3,14 +3,14 @@
 # TODO:ネットワークの存在確認
 # TODO:ネットワーク作成
 
-pushd ldap
+pushd ldap > /dev/null
   docker-compose up -d
-popd
+popd > /dev/null
 
-pushd project
+pushd project > /dev/null
   docker-compose up -d
-popd
+popd > /dev/null
 
-pushd proxy
+pushd proxy > /dev/null
   docker-compose up -d
-popd
+popd > /dev/null

@@ -1,13 +1,13 @@
 #!/bin/bash
 
-pushd proxy
+pushd proxy > /dev/null
   docker-compose stop
-popd
+popd > /dev/null
 
-pushd project
+pushd project > /dev/null
   docker-compose stop
-popd
+popd > /dev/null
 
-pushd ldap
+pushd ldap > /dev/null
   docker-compose stop
-popd
+popd > /dev/null
