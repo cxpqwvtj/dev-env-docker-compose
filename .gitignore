@@ -1,2 +1,3 @@
-project/gitlab/*
-project/redmine/*
+ldap/data/*
+project/data/*
+project/data/*
