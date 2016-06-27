@@ -15,7 +15,8 @@
 - Dockerインストール
 - Dockerのネットワーク作成
 ```
-TODO:コマンド記述
+docker network create reverse_proxy
+docker network create backbone
 ```
 - start-all-service.sh を実行
 ```
@@ -57,14 +58,7 @@ TODO:コマンド記述
 
 e.g)http(s)://hostname/projectname/redmine
 
-## 起動
-
-ネットワーク作成
-
-```
-docker network create reverse_proxy
-docker network create backbone
-```
+## composeファイル単位の個別起動
 
 アカウント管理用コンテナ起動
 
