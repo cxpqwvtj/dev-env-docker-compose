@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# TODO:現状はホスト側にマウンドしているディレクトリ全てをバックアップ対象としているが、
+# RedmineとGitLabはbackupディレクトリのみコピーするように変更する
+
 abs_dirname() {
   local cwd="$(pwd)"
   local path="$1"
