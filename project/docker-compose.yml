@@ -93,7 +93,7 @@ services:
 #    ports:
 #      - "10080:80"
     volumes:
-      - /srv/docker/gitlab/gitlab:/home/git/data
+      - ./data/gitlab/gitlab:/home/git/data
     networks:
       - reverse_proxy
       - backbone
