@@ -237,7 +237,7 @@ services:
 # Rocket.Chat
 #####################################################
   rocketchat:
-    image: rocketchat/rocket.chat:0.33.0
+    image: rocketchat/rocket.chat:0.35.0
     environment:
       - PORT=3000
       - ROOT_URL=http://localhost/portal/rocketchat
@@ -247,27 +247,17 @@ services:
       - rocketchat-mongodb:mongodb
     external_links:
       - ldap_openldap_1:openldap
-    volumes_from:
-      - rocketchat-data
+    volumes:
+      - ./data/rocketchat/uploads:/app/uploads
     networks:
       - reverse_proxy
       - backbone
 
   rocketchat-mongodb:
     image: mongo:3.2.4
-    volumes_from:
-      - rocketchat-data
-    networks:
-      - backbone
-
-  rocketchat-data:
-    image: busybox:1.24.2
     volumes:
-      # mongodb
       - ./data/rocketchat/db:/data/db
       - ./data/rocketchat/configdb:/data/configdb
-      # rocketchat
-      - ./data/rocketchat/uploads:/app/uploads
     networks:
       - backbone
 
