@@ -220,14 +220,13 @@ services:
 #####################################################
 # Jenkins
 #####################################################
-
   jenkins:
     restart: always
     image: jenkins:2.3-alpine
     environment:
-#      - JENKINS_HOST=192.168.55.44
+      - JENKINS_HOST=localhost #change-it
       - JENKINS_OPTS=--prefix=/portal/jenkins
-#      - JENKINS_PORT=10082
+      - JENKINS_PORT=8080
     external_links:
       - ldap_openldap_1:openldap
     expose:
