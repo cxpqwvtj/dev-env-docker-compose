@@ -109,7 +109,7 @@ services:
       - backbone
 
 #  gitlab-kanban:
-#    #restart: always
+#    restart: always
 #    image: leanlabs/kanban:1.6.0
 #    environment:
 #      # URL on which Leanlabs Kanban will be reachable
@@ -144,6 +144,7 @@ services:
 # Redmine
 #####################################################
   redmine-postgresql:
+    restart: always
     image: sameersbn/postgresql:9.4-21
     environment:
       - DB_USER=redmine
@@ -155,6 +156,7 @@ services:
       - backbone
 
   redmine:
+    restart: always
     image: sameersbn/redmine:3.2.1-6
     depends_on:
       - redmine-postgresql
@@ -220,6 +222,7 @@ services:
 #####################################################
 
   jenkins:
+    restart: always
     image: jenkins:2.3-alpine
     environment:
 #      - JENKINS_HOST=192.168.55.44
@@ -237,6 +240,7 @@ services:
 # Rocket.Chat
 #####################################################
   rocketchat:
+    restart: always
     image: rocketchat/rocket.chat:0.35.0
     environment:
       - PORT=3000
@@ -265,6 +269,7 @@ services:
 # Elasticsearch + fluentd + Kibana + Topbeat
 #####################################################
 #  elasticsearch:
+#    restart: always
 #    image: elasticsearch:5.0.0-alpha1
 #    volumes_from:
 #      - log-analyze-data
@@ -272,6 +277,7 @@ services:
 #      - 9200:9200
 #
 #  fluent:
+#    restart: always
 #    build:
 #      context: ./fluent
 #    depends_on:
@@ -282,6 +288,7 @@ services:
 #      - ./data/fluent:/fluentd/etc:ro
 #
 #  kibana:
+#    restart: always
 #    image: kibana:5.0.0-alpha1
 #    depends_on:
 #      - elasticsearch
@@ -295,6 +302,7 @@ services:
 #      - 5601:5601
 #
 #  topbeat:
+#    restart: always
 #    build:
 #      context: ./topbeat
 #    depends_on:
@@ -321,6 +329,7 @@ services:
 # ownCloud
 #####################################################
   owncloud:
+    restart: always
     image: cxpqwvtj/owncloud-ldap:9.0.1-apache
     environment:
       - OWNCLOUD_BASE_PATH=/portal/owncloud

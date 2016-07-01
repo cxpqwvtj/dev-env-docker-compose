@@ -1,6 +1,7 @@
 version: '2'
 services:
   openldap:
+    restart: always
     image: dinkel/openldap:2.4.40
     environment:
       - SLAPD_PASSWORD=mysecretpassword #change-it
@@ -23,6 +24,7 @@ services:
       - backbone
 
   pocci-account-center:
+    restart: always
     image: cxpqwvtj/pocci-account-center:latest
     links:
       - openldap:openldap
