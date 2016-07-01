@@ -336,18 +336,10 @@ services:
       - ldap_openldap_1:openldap
     expose:
       - 80
-    volumes_from:
-      - owncloud-data
+    volumes:
+      - ./data/owncloud:/var/www/html
     networks:
       - reverse_proxy
-      - backbone
-
-  owncloud-data:
-    image: busybox:1.24.2
-    volumes:
-      - /var/www/html
-    networks:
-      - backbone
 
 networks:
   reverse_proxy:

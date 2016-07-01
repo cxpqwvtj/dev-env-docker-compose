@@ -10,13 +10,6 @@ services:
       - SLAPD_FORCE_RECONFIGURE=false
     expose:
       - 389
-    volumes_from:
-      - openldap-data
-    networks:
-      - backbone
-
-  openldap-data:
-    image: busybox:1.24.2
     volumes:
       - ./data/etc/ldap:/etc/ldap
       - ./data/var/lib/ldap:/var/lib/ldap
