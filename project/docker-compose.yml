@@ -5,7 +5,7 @@ services:
 #####################################################
   gitlab-postgresql:
     restart: always
-    image: sameersbn/postgresql:9.4-21
+    image: sameersbn/postgresql:9.4-22
     volumes:
       - ./data/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
@@ -18,7 +18,7 @@ services:
 
   gitlab:
     restart: always
-    image: sameersbn/gitlab:8.7.6
+    image: sameersbn/gitlab:8.9.3
     depends_on:
       - gitlab-postgresql
       - gitlab-redis
@@ -145,7 +145,7 @@ services:
 #####################################################
   redmine-postgresql:
     restart: always
-    image: sameersbn/postgresql:9.4-21
+    image: sameersbn/postgresql:9.4-22
     environment:
       - DB_USER=redmine
       - DB_PASS=password
@@ -157,7 +157,7 @@ services:
 
   redmine:
     restart: always
-    image: sameersbn/redmine:3.2.1-6
+    image: sameersbn/redmine:3.3.0
     depends_on:
       - redmine-postgresql
     links:
@@ -257,7 +257,7 @@ services:
       - backbone
 
   rocketchat-mongodb:
-    image: mongo:3.2.4
+    image: mongo:3.3.9
     volumes:
       - ./data/rocketchat/db:/data/db
       - ./data/rocketchat/configdb:/data/configdb
