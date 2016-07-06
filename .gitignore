@@ -2,3 +2,4 @@ ldap/data/*
 project/data/*
 project/data/*
 backup/*
+admin-tools/env
