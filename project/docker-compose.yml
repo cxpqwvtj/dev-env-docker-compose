@@ -257,6 +257,7 @@ services:
       - backbone
 
   rocketchat-mongodb:
+    restart: always
     image: mongo:3.3.9
     volumes:
       - ./data/rocketchat/db:/data/db
