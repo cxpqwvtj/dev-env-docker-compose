@@ -58,9 +58,9 @@ services:
       - GITLAB_EMAIL_REPLY_TO=noreply@example.com #change-it
       - GITLAB_INCOMING_EMAIL_ADDRESS=reply@example.com #change-it
 
-      - GITLAB_BACKUP_DIR=/home/git/data/backups
-      - GITLAB_BACKUP_SCHEDULE=daily
-      - GITLAB_BACKUP_TIME=01:00
+#      - GITLAB_BACKUP_DIR=/home/git/data/backups
+#      - GITLAB_BACKUP_SCHEDULE=daily
+#      - GITLAB_BACKUP_TIME=01:00
 
       - SMTP_ENABLED=false
       - SMTP_DOMAIN=www.example.com
@@ -185,10 +185,10 @@ services:
 
       - REDMINE_CONCURRENT_UPLOADS=2
 
-      - REDMINE_BACKUPS_DIR=/home/redmine/data/backups
-      - REDMINE_BACKUP_SCHEDULE=daily
-      - REDMINE_BACKUP_EXPIRY=604800
-      - REDMINE_BACKUP_TIME=02:00
+#      - REDMINE_BACKUPS_DIR=/home/redmine/data/backups
+#      - REDMINE_BACKUP_SCHEDULE=daily
+#      - REDMINE_BACKUP_EXPIRY=604800
+#      - REDMINE_BACKUP_TIME=02:00
 
 #      - SMTP_ENABLED=false
 #      - SMTP_METHOD=smtp
