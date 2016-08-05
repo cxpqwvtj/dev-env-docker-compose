@@ -190,23 +190,23 @@ services:
 #      - REDMINE_BACKUP_EXPIRY=604800
 #      - REDMINE_BACKUP_TIME=02:00
 
-#      - SMTP_ENABLED=false
-#      - SMTP_METHOD=smtp
-#      - SMTP_DOMAIN=www.example.com
-#      - SMTP_HOST=smtp.gmail.com
-#      - SMTP_PORT=587
-#      - SMTP_USER=mailer@example.com
-#      - SMTP_PASS=password
-#      - SMTP_STARTTLS=true
-#      - SMTP_AUTHENTICATION=:login
-#
-#      - IMAP_ENABLED=false
-#      - IMAP_HOST=imap.gmail.com
-#      - IMAP_PORT=993
-#      - IMAP_USER=mailer@example.com
-#      - IMAP_PASS=password
-#      - IMAP_SSL=true
-#      - IMAP_INTERVAL=30
+      - SMTP_ENABLED=false
+      - SMTP_METHOD=smtp
+      - SMTP_DOMAIN=www.example.com
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=mailer@example.com
+      - SMTP_PASS=password
+      - SMTP_STARTTLS=true
+      - SMTP_AUTHENTICATION=:login
+
+      - IMAP_ENABLED=false
+      - IMAP_HOST=imap.gmail.com
+      - IMAP_PORT=993
+      - IMAP_USER=mailer@example.com
+      - IMAP_PASS=password
+      - IMAP_SSL=true
+      - IMAP_INTERVAL=30
 #    ports:
 #      - "80:80"
     expose:
