@@ -23,13 +23,21 @@ script_dir="$(abs_dirname "$0")"
 file_name_date="`date '+%Y%m%d%H%M%S'`"
 backup_dir="${script_dir}/../../backup"
 
-if [ ! -e "${backup_dir}" ]; then
-  echo "create backup dir"
-  mkdir -p "${backup_dir}"
+# バックアップファイルが存在しない場合、メッセージを表示し、中断
+if [ ! -e "${backup_dir}/${file_name_date}-ldap.tar.gz" ]; then
+  echo "${backup_dir}/${file_name_date}-ldap.tar.gz ファイルが存在しません"
+fi
+if [ ! -e "${backup_dir}/${file_name_date}-portal.tar.gz" ]; then
+  echo "${backup_dir}/${file_name_date}-portal.tar.gz ファイルが存在しません"
 fi
 
-# TODO:すでに解凍先のディレクトリがある場合、メッセージを表示し、中断
-# TODO:バックアップファイルが存在しない場合、メッセージを表示し、中断
+# すでに解凍先のディレクトリがある場合、メッセージを表示し、中断
+if [ -e "$script_dir/../../ldap/data" ]; then
+  echo "解凍先ディレクトリが存在します。 $script_dir/../../ldap/data"
+fi
+if [ -e "$script_dir/../../project/data" ]; then
+  echo "解凍先ディレクトリが存在します。 $script_dir/../../project/data"
+fi
 
 tar zxvf "${backup_dir}/${file_name_date}-ldap.tar.gz" -C "$script_dir/../../ldap" data
 tar zxvf "${backup_dir}/${file_name_date}-portal.tar.gz" -C "$script_dir/../../project" data
