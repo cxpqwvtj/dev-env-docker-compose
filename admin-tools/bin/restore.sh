@@ -20,23 +20,27 @@ abs_dirname() {
 }
 
 script_dir="$(abs_dirname "$0")"
-file_name_date="`date '+%Y%m%d%H%M%S'`"
+file_name_date=$1
 backup_dir="${script_dir}/../../backup"
 
 # バックアップファイルが存在しない場合、メッセージを表示し、中断
 if [ ! -e "${backup_dir}/${file_name_date}-ldap.tar.gz" ]; then
   echo "${backup_dir}/${file_name_date}-ldap.tar.gz ファイルが存在しません"
+  exit 0
 fi
 if [ ! -e "${backup_dir}/${file_name_date}-portal.tar.gz" ]; then
   echo "${backup_dir}/${file_name_date}-portal.tar.gz ファイルが存在しません"
+  exit 0
 fi
 
 # すでに解凍先のディレクトリがある場合、メッセージを表示し、中断
 if [ -e "$script_dir/../../ldap/data" ]; then
   echo "解凍先ディレクトリが存在します。 $script_dir/../../ldap/data"
+  exit 0
 fi
 if [ -e "$script_dir/../../project/data" ]; then
   echo "解凍先ディレクトリが存在します。 $script_dir/../../project/data"
+  exit 0
 fi
 
 tar zxvf "${backup_dir}/${file_name_date}-ldap.tar.gz" -C "$script_dir/../../ldap" data
