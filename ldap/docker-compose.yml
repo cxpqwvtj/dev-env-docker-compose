@@ -19,6 +19,8 @@ services:
   pocci-account-center:
     restart: always
     image: cxpqwvtj/pocci-account-center:latest
+    depends_on:
+      - openldap
     links:
       - openldap:openldap
     environment:
