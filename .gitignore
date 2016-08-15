@@ -1,5 +1,5 @@
 ldap/data/*
 project/data/*
-project/data/*
+proxy/data/*
 backup/*
 admin-tools/env
