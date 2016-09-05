@@ -5,7 +5,7 @@ services:
 #####################################################
   gitlab-postgresql:
     restart: always
-    image: sameersbn/postgresql:9.4-22
+    image: sameersbn/postgresql:9.5-2
     volumes:
       - ./data/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
@@ -18,7 +18,7 @@ services:
 
   gitlab:
     restart: always
-    image: sameersbn/gitlab:8.9.3
+    image: sameersbn/gitlab:8.11.4
     depends_on:
       - gitlab-postgresql
       - gitlab-redis
@@ -145,7 +145,7 @@ services:
 #####################################################
   redmine-postgresql:
     restart: always
-    image: sameersbn/postgresql:9.4-22
+    image: sameersbn/postgresql:9.5-2
     environment:
       - DB_USER=redmine
       - DB_PASS=password
@@ -157,7 +157,7 @@ services:
 
   redmine:
     restart: always
-    image: sameersbn/redmine:3.3.0
+    image: sameersbn/redmine:3.3.0-4
     depends_on:
       - redmine-postgresql
     links:
@@ -222,7 +222,7 @@ services:
 #####################################################
   jenkins:
     restart: always
-    image: jenkins:2.3-alpine
+    image: jenkins:2.7.3-alpine
     environment:
       - JENKINS_HOST=localhost #change-it
       - JENKINS_OPTS=--prefix=/portal/jenkins
@@ -240,7 +240,7 @@ services:
 #####################################################
   rocketchat:
     restart: always
-    image: rocketchat/rocket.chat:0.35.0
+    image: rocketchat/rocket.chat:0.38.0
     environment:
       - PORT=3000
       - ROOT_URL=http://localhost/portal/rocketchat
