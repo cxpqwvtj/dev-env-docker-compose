@@ -42,7 +42,7 @@ services:
       - TZ=Asia/Tokyo
       - GITLAB_TIMEZONE=Tokyo
 
-      - GITLAB_SECRETS_SECRET_KEY_BASE=long-and-random-alphanumeric-string #change-it
+      - GITLAB_SECRETS_OTP_KEY_BASE=long-and-random-alphanumeric-string #change-it
       - GITLAB_SECRETS_DB_KEY_BASE=long-and-random-alphanumeric-string #change-it
 
       - GITLAB_HOST=localhost #change-it
