@@ -201,6 +201,8 @@ services:
       - ldap_openldap_1:openldap
     expose:
       - 8080
+    volumes:
+      - ./data/jenkins/home:/var/jenkins_home
     networks:
       - reverse_proxy
       - backbone
