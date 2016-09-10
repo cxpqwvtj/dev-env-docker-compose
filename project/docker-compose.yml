@@ -210,7 +210,7 @@ services:
 #####################################################
   rocketchat:
     restart: always
-    image: rocketchat/rocket.chat:0.38.0
+    image: rocketchat/rocket.chat:0.39.0
     environment:
       - PORT=3000
       - ROOT_URL=http://localhost/portal/rocketchat
