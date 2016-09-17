@@ -19,6 +19,7 @@ services:
       - ./proxy/config/conf.d:/etc/nginx/conf.d:ro
       - ./proxy/html:/usr/share/nginx/html:ro
       - ./data/log:/var/log/nginx
+      - /etc/localtime:/etc/localtime:ro
     networks:
       - reverse_proxy
 
