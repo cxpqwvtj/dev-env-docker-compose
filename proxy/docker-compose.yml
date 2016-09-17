@@ -18,7 +18,7 @@ services:
       - ./proxy/config/conf.d:/etc/nginx/conf.d:ro
       - ./proxy/html:/usr/share/nginx/html:ro
       - ./data/log:/var/log/nginx
-      - /etc/localtime:/etc/localtime:ro
+#      - /etc/localtime:/etc/localtime:ro # timezoneの共有
     networks:
       - reverse_proxy
 
