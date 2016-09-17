@@ -8,7 +8,6 @@ services:
     external_links:
       - ldap_pocci-account-center_1:pocci-account-center
       - project_gitlab_1:portal-gitlab
-#      - project_gitlab-kanban_1:portal-gitlab-kanban
       - project_redmine_1:portal-redmine
       - project_jenkins_1:portal-jenkins
       - project_rocketchat_1:portal-rocketchat
