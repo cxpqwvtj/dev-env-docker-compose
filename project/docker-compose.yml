@@ -238,39 +238,47 @@ services:
 #####################################################
 # Elasticsearch + fluentd + Kibana + Topbeat
 #####################################################
-#  elasticsearch:
-#    restart: always
-#    image: elasticsearch:5.0.0-alpha1
-#    volumes_from:
-#      - log-analyze-data
-#    ports:
-#      - 9200:9200
-#
-#  fluent:
-#    restart: always
-#    build:
-#      context: ./fluent
-#    depends_on:
-#      - elasticsearch
+  elasticsearch:
+    restart: always
+    image: elasticsearch:2.4.0
+    expose:
+      - 9200
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - backbone
+
+  fluent:
+    restart: always
+    build:
+      context: ./fluent
+    depends_on:
+      - elasticsearch
+    environment:
+      - FLUENTD_CONF=fluent.conf
+    volumes:
+      - ./fluent/fluent.conf:/fluentd/etc/fluent.conf:ro
+      - ../proxy/data/log/access.log:/home/fluent/log/nginx/access.log:ro # nginxのaccess log
+    networks:
+      - backbone
+
+  kibana:
+    restart: always
+    image: kibana:4.6.1
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch:elasticsearch
 #    environment:
-#      - FLUENTD_CONF=fluent.conf
-#    volumes:
-#      - ./data/fluent:/fluentd/etc:ro
-#
-#  kibana:
-#    restart: always
-#    image: kibana:5.0.0-alpha1
-#    depends_on:
-#      - elasticsearch
-#    links:
-#      - elasticsearch:elasticsearch
-##    environment:
-##      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
-#    volumes:
-#      - ./data/kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
-#    ports:
-#      - 5601:5601
-#
+#      - ELASTICSEARCH_URL=http://elasticsearch:9200 # kibana.ymlでURLを指定するため、ここでは指定しない。docker-entrypoint.sh の実行で警告が出てしまうが...
+    volumes:
+      - ./kibana/config/kibana.yml:/opt/kibana/config/kibana.yml:ro
+    ports:
+      - 5601:5601
+    networks:
+      - reverse_proxy
+      - backbone
+
 #  topbeat:
 #    restart: always
 #    build:
@@ -289,11 +297,6 @@ services:
 #      - PERIOD=10
 #      - SHIPPER_NAME=
 #      - SHIPPER_TAGS=
-#
-#  log-analyze-data:
-#    image: busybox:1.24.2
-#    volumes:
-#      - /usr/share/elasticsearch/data
 
 #####################################################
 # ownCloud

@@ -3,7 +3,7 @@ MAINTAINER cxpqwvtj
 
 RUN apt-get install -y curl git
 
-ENV TOPBEAT_VERSION=5.0.0-alpha1
+ENV TOPBEAT_VERSION=5.0.0-alpha5
 
 RUN curl -L -O https://download.elastic.co/beats/topbeat/topbeat_${TOPBEAT_VERSION}_amd64.deb && \
     sudo dpkg -i topbeat_${TOPBEAT_VERSION}_amd64.deb && \
