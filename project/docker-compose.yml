@@ -314,6 +314,7 @@ services:
       - ./data/owncloud:/var/www/html
     networks:
       - reverse_proxy
+      - backbone
 
 #####################################################
 # alfresco
