@@ -25,38 +25,29 @@ docker network create backbone
 - アクセス
   - http://localhost
 
-## docker-composeで設定予定のサービス
+## サービス起動確認
 
-### プロジェクト毎ではなく、一度だけ立ち上げる
+現在は以下のサービスが立ち上がります
 
-- LDAP
-- nginx
-- Zabbix
-
-### プロジェクト毎に立ち上げる
-
-- Redmine(PostgreSQL)
-- GitLab(PostgreSQL)
-- ownCloud
-- Rocket.Chat(MongoDB)
+- アカウント管理
+  - http://localhost/account/
+- Redmine
+  - http://localhost/portal/redmine
+- GitLab
+  - http://localhost/portal/gitlab
 - Jenkins
-- Subversion
+  - http://localhost/portal/jenkins
+- Rocket.Chat
+  - http://localhost/portal/rocketchat
+- ownCloud
+  - http://localhost/portal/owncloud
+- kibana
+  - http://localhost:5601
+
+## 今後追加予定のサービス
+
+- Zabbix
 - SonarQube(PostgreSQL)
-- Kibana(ElasticSearch/fluentd)
-
-## URL
-
-- プロジェクト名をコンテキストパスとする
-- 各サービスのURLは以下の予定
-  - redmine
-  - gitlab
-  - owncloud
-  - rocketchat
-  - jenkins
-  - svn
-  - kibana
-
-e.g)http(s)://hostname/projectname/redmine
 
 ## composeファイル単位の個別起動
 
