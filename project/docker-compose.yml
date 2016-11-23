@@ -258,7 +258,7 @@ services:
       - FLUENTD_CONF=fluent.conf
     volumes:
       - ./fluent/fluent.conf:/fluentd/etc/fluent.conf:ro
-      - ../proxy/data/log/access.log:/home/fluent/log/nginx/access.log:ro # nginxのaccess log
+      - ../proxy/data/log:/home/fluent/log/nginx:ro # nginxのlog
     networks:
       - backbone
 
