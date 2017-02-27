@@ -5,7 +5,7 @@ services:
 #####################################################
   gitlab-postgresql:
     restart: always
-    image: sameersbn/postgresql:9.5-2
+    image: sameersbn/postgresql:9.6-2
     volumes:
       - ./data/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
@@ -18,7 +18,7 @@ services:
 
   gitlab:
     restart: always
-    image: sameersbn/gitlab:8.11.5
+    image: sameersbn/gitlab:8.16.6
     depends_on:
       - gitlab-postgresql
       - gitlab-redis
@@ -115,7 +115,7 @@ services:
 #####################################################
   redmine-postgresql:
     restart: always
-    image: sameersbn/postgresql:9.5-2
+    image: sameersbn/postgresql:9.6-2
     environment:
       - DB_USER=redmine
       - DB_PASS=password
@@ -127,7 +127,7 @@ services:
 
   redmine:
     restart: always
-    image: sameersbn/redmine:3.3.0-4
+    image: sameersbn/redmine:3.3.2-1
     depends_on:
       - redmine-postgresql
     links:
@@ -210,12 +210,15 @@ services:
 #####################################################
   rocketchat:
     restart: always
-    image: rocketchat/rocket.chat:0.39.0
+    image: rocketchat/rocket.chat:0.52.0
     environment:
       - PORT=3000
       - ROOT_URL=http://localhost/portal/rocketchat
       - MONGO_URL=mongodb://mongodb:27017/rocketchat
       - ADMIN_PASS=admin #change-it
+      - MAIL_URL='' #smtp://smtp.email
+      - HTTP_PROXY='' #http://proxy.domain.com
+      - HTTPS_PROXY='' #http://proxy.domain.com
     links:
       - rocketchat-mongodb:mongodb
     external_links:
@@ -228,10 +231,31 @@ services:
 
   rocketchat-mongodb:
     restart: always
-    image: mongo:3.3.9
+    image: mongo:3.2
     volumes:
       - ./data/rocketchat/db:/data/db
       - ./data/rocketchat/configdb:/data/configdb
+    networks:
+      - backbone
+
+  rocketchat-hubot:
+    image: rocketchat/hubot-rocketchat:latest
+    environment:
+      - ROCKETCHAT_URL=rocketchat:3000/portal/rocketchat
+      - ROCKETCHAT_ROOM=GENERAL
+      - LISTEN_ON_ALL_PUBLIC=true
+      - ROCKETCHAT_USER=rocket.cat
+      - ROCKETCHAT_PASSWORD=botpassword
+      - BOT_NAME=bot
+      - EXTERNAL_SCRIPTS=hubot-help,hubot-seen,hubot-links,hubot-diagnostics
+    links:
+      - rocketchat:rocketchat
+    depends_on:
+      - rocketchat
+#    volumes:
+#      - ./scripts:/home/hubot/scripts
+    ports:
+      - 3001:8080
     networks:
       - backbone
 
@@ -240,7 +264,7 @@ services:
 #####################################################
   elasticsearch:
     restart: always
-    image: elasticsearch:2.4.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.2.1
     expose:
       - 9200
     volumes:
@@ -264,7 +288,7 @@ services:
 
   kibana:
     restart: always
-    image: kibana:4.6.1
+    image: docker.elastic.co/kibana/kibana:5.2.1
     depends_on:
       - elasticsearch
     links:
