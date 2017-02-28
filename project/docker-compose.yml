@@ -49,7 +49,7 @@ services:
       - GITLAB_HOST=localhost #change-it
       - GITLAB_PORT=80
       - GITLAB_SSH_PORT=10022 #change-it
-      - GITLAB_RELATIVE_URL_ROOT=/portal/gitlab
+      - GITLAB_RELATIVE_URL_ROOT=
 
       - GITLAB_ROOT_PASSWORD=5iveL!fe
 
@@ -147,7 +147,7 @@ services:
       - REDMINE_HOST=localhost #change-it
       - REDMINE_PORT=80
       - REDMINE_HTTPS=false
-      - REDMINE_RELATIVE_URL_ROOT=/portal/redmine
+      - REDMINE_RELATIVE_URL_ROOT=
       - REDMINE_SECRET_TOKEN=
 
       - REDMINE_SUDO_MODE_ENABLED=false
@@ -195,7 +195,7 @@ services:
     image: jenkins:2.7.3-alpine
     environment:
       - JENKINS_HOST=localhost #change-it
-      - JENKINS_OPTS=--prefix=/portal/jenkins
+      - JENKINS_OPTS=--prefix=
       - JENKINS_PORT=8080
     external_links:
       - ldap_openldap_1:openldap
@@ -213,7 +213,7 @@ services:
     image: rocketchat/rocket.chat:0.52.0
     environment:
       - PORT=3000
-      - ROOT_URL=http://localhost/portal/rocketchat
+      - ROOT_URL=http://localhost
       - MONGO_URL=mongodb://mongodb:27017/rocketchat
       - ADMIN_PASS=admin #change-it
       - MAIL_URL='' #smtp://smtp.email
@@ -241,7 +241,7 @@ services:
   rocketchat-hubot:
     image: rocketchat/hubot-rocketchat:latest
     environment:
-      - ROCKETCHAT_URL=rocketchat:3000/portal/rocketchat
+      - ROCKETCHAT_URL=rocketchat:3000
       - ROCKETCHAT_ROOM=GENERAL
       - LISTEN_ON_ALL_PUBLIC=true
       - ROCKETCHAT_USER=rocket.cat
@@ -327,7 +327,7 @@ services:
     restart: always
     image: cxpqwvtj/owncloud-ldap:9.0.1-apache
     environment:
-      - OWNCLOUD_BASE_PATH=/portal/owncloud
+      - OWNCLOUD_BASE_PATH=
     external_links:
       - ldap_openldap_1:openldap
     expose:

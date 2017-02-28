@@ -24,7 +24,7 @@ services:
     links:
       - openldap:openldap
     environment:
-      - APP_BASE_URL=/account
+      - APP_BASE_URL=
       - LDAP_URL=ldap://openldap
       - LDAP_BASE_DN=dc=example,dc=com #change-it
       - USER_APP_PORT=9898
