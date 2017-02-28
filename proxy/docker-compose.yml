@@ -3,6 +3,8 @@ services:
   proxy:
     restart: always
     image: nginx:1.11.10-alpine
+    environment:
+      - TZ=Asia/Tokyo
     ports:
       - "80:80"
     external_links:
