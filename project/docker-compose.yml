@@ -182,7 +182,9 @@ services:
     expose:
       - 80
     volumes:
+      - ./redmine:/home/redmine/custom
       - ./data/redmine/redmine:/home/redmine/data
+      - ./data/gitlab/gitlab/repositories:/home/redmine/repositories:ro
     networks:
       - reverse_proxy
       - backbone
