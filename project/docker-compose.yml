@@ -266,44 +266,44 @@ services:
 #####################################################
 # Elasticsearch + fluentd + Kibana + Topbeat
 #####################################################
-  elasticsearch:
-    restart: always
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.2.1
-    expose:
-      - 9200
-    volumes:
-      - ./data/elasticsearch:/usr/share/elasticsearch/data
-    networks:
-      - backbone
-
-  fluent:
-    restart: always
-    build:
-      context: ./fluent
-    depends_on:
-      - elasticsearch
-    environment:
-      - FLUENTD_CONF=fluent.conf
-    volumes:
-      - ./fluent/fluent.conf:/fluentd/etc/fluent.conf:ro
-      - ../proxy/data/log:/home/fluent/log/nginx:ro # nginxのlog
-    networks:
-      - backbone
-
-  kibana:
-    restart: always
-    image: docker.elastic.co/kibana/kibana:5.2.1
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch:elasticsearch
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-    ports:
-      - 5601:5601
-    networks:
-      - reverse_proxy
-      - backbone
+#  elasticsearch:
+#    restart: always
+#    image: docker.elastic.co/elasticsearch/elasticsearch:5.2.1
+#    expose:
+#      - 9200
+#    volumes:
+#      - ./data/elasticsearch:/usr/share/elasticsearch/data
+#    networks:
+#      - backbone
+#
+#  fluent:
+#    restart: always
+#    build:
+#      context: ./fluent
+#    depends_on:
+#      - elasticsearch
+#    environment:
+#      - FLUENTD_CONF=fluent.conf
+#    volumes:
+#      - ./fluent/fluent.conf:/fluentd/etc/fluent.conf:ro
+#      - ../proxy/data/log:/home/fluent/log/nginx:ro # nginxのlog
+#    networks:
+#      - backbone
+#
+#  kibana:
+#    restart: always
+#    image: docker.elastic.co/kibana/kibana:5.2.1
+#    depends_on:
+#      - elasticsearch
+#    links:
+#      - elasticsearch:elasticsearch
+#    environment:
+#      - ELASTICSEARCH_URL=http://elasticsearch:9200
+#    ports:
+#      - 5601:5601
+#    networks:
+#      - reverse_proxy
+#      - backbone
 
 #  topbeat:
 #    restart: always
