@@ -93,7 +93,7 @@ services:
       - LDAP_BASE=dc=example,dc=com #change-it
       - LDAP_USER_FILTER=
     ports:
-      - "10022:10022" #change-it
+      - "10022:22" #change-it
     volumes:
       - ./data/gitlab/gitlab:/home/git/data
     networks:
