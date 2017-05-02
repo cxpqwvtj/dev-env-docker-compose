@@ -12,6 +12,6 @@ pushd project > /dev/null
   docker-compose up -d
 popd > /dev/null
 
-pushd proxy > /dev/null
+pushd nginx > /dev/null
   docker-compose up -d
 popd > /dev/null

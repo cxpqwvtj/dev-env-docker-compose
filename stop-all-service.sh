@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pushd proxy > /dev/null
+pushd nginx > /dev/null
   docker-compose stop
 popd > /dev/null
 
