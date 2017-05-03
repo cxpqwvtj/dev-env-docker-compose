@@ -2,7 +2,7 @@ version: '2'
 services:
   proxy:
     restart: always
-    image: nginx:1.11.10-alpine
+    image: nginx:1.13.0
     environment:
       - TZ=Asia/Tokyo
     ports:
