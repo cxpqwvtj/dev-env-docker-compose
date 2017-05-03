@@ -16,9 +16,9 @@ services:
       - project_owncloud_1:portal-owncloud
 #      - project_kibana_1:kibana
     volumes:
-      - ./proxy/config/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./proxy/config/conf.d:/etc/nginx/conf.d:ro
-      - ./proxy/html:/usr/share/nginx/html:ro
+      - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/config/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/html:/usr/share/nginx/html:ro
       - ./data/log:/var/log/nginx
 #      - /etc/localtime:/etc/localtime:ro # timezoneの共有
     networks:
