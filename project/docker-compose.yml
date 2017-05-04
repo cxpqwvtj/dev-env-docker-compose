@@ -214,7 +214,7 @@ services:
 #####################################################
   rocketchat:
     restart: always
-    image: rocketchat/rocket.chat:0.52.0
+    image: rocketchat/rocket.chat:0.55.1
     environment:
       - PORT=3000
       - ROOT_URL=http://chat.example.com
