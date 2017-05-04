@@ -268,7 +268,7 @@ services:
 #####################################################
   owncloud:
     restart: always
-    image: cxpqwvtj/owncloud-ldap:9.0.1-apache
+    image: cxpqwvtj/owncloud-ldap:9.1.5-apache
     environment:
       - OWNCLOUD_BASE_PATH=
     external_links:
