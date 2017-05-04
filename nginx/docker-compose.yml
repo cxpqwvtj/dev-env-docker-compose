@@ -8,12 +8,12 @@ services:
     ports:
       - "80:80"
     external_links:
-      - ldap_pocci-account-center_1:pocci-account-center
-      - project_gitlab_1:portal-gitlab
-      - project_redmine_1:portal-redmine
-      - project_jenkins_1:portal-jenkins
-      - project_rocketchat_1:portal-rocketchat
-      - project_owncloud_1:portal-owncloud
+      - ldap_pocci-account-center_1:account.example.com
+      - project_gitlab_1:gitlab.example.com
+      - project_redmine_1:redmine.example.com
+      - project_jenkins_1:jenkins.example.com
+      - project_rocketchat_1:chat.example.com
+      - project_owncloud_1:owncloud.example.com
     volumes:
       - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/config/conf.d:/etc/nginx/conf.d:ro
