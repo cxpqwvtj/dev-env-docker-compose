@@ -194,7 +194,7 @@ services:
 #####################################################
   jenkins:
     restart: always
-    image: jenkins:2.7.3-alpine
+    image: jenkins:2.46.2
     environment:
       - JENKINS_HOST=jenkins.example.com #change-it
       - JENKINS_OPTS=--prefix=
