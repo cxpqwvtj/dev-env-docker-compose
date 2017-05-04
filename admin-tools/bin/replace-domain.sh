@@ -4,7 +4,7 @@ source ../env
 
 files=(
   ../../ldap/docker-compose.yml
-  ../../proxy/docker-compose.yml
+  ../../nginx/docker-compose.yml
   ../../project/docker-compose.yml
 )
 
