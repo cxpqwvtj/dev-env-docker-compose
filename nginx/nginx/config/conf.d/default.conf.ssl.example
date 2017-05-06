@@ -20,8 +20,6 @@ server {
               ECDH+AES128:DH+AES:
               !aNULL!eNull:!EXPORT:!DES:!3DES:!MD5:!DSS;
 
-  # client_cert_placeholder
-
   client_max_body_size 1024M;
 
   proxy_set_header Host $host;
