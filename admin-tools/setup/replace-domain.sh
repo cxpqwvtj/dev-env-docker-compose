@@ -19,11 +19,12 @@ files=(
   ../../nginx/nginx/config/conf.d/redmine.conf
 )
 
+OS_NAME=`uname -s`
+if [ $OS_NAME = 'Darwin' ]; then
+  FILE_EXT="''"
+fi
+
 for file in ${files[@]}; do
-  OS_NAME=`uname -s`
-  if [ $OS_NAME = 'Darwin' ]; then
-    FILE_EXT="''"
-  fi
   COMMAND="sed -i ${FILE_EXT} -e \"s/example.com/${HOST_NAME}/g\" ${file}"
   echo $COMMAND
   eval ${COMMAND}
