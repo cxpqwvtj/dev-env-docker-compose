@@ -43,27 +43,21 @@ docker network create backbone
 
 ## サービス起動確認
 
-現在は以下のサービスが立ち上がります
+- 現在は以下のサービスが立ち上がります
+  - ローカル環境ではhostsファイルに設定を行う必要がある
 
 - アカウント管理
-  - http://localhost/account/
+  - http://account.example.com
 - Redmine
-  - http://localhost/portal/redmine
+  - http://redmine.example.com
 - GitLab
-  - http://localhost/portal/gitlab
+  - http://gitlab.example.com
 - Jenkins
-  - http://localhost/portal/jenkins
+  - http://jenkins.example.com
 - Rocket.Chat
-  - http://localhost/portal/rocketchat
+  - http://chat.example.com
 - ownCloud
-  - http://localhost/portal/owncloud
-- kibana
-  - http://localhost:5601
-
-## 今後追加予定のサービス
-
-- Zabbix
-- SonarQube(PostgreSQL)
+  - http://owncloud.example.com
 
 ## composeファイル単位の個別起動
 
@@ -86,7 +80,7 @@ cd ..
 リバースプロキシ起動
 
 ```
-cd proxy
+cd nginx
 docker-compose up -d
 cd ..
 ```
