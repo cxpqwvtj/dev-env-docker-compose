@@ -5,6 +5,7 @@ set -eu
 pushd $(dirname ${BASH_SOURCE:-$0})
 
 OS_NAME=`uname -s`
+FILE_EXT=
 if [ $OS_NAME = 'Darwin' ]; then
   FILE_EXT="''"
 fi

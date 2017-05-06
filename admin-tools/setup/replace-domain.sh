@@ -20,6 +20,7 @@ files=(
 )
 
 OS_NAME=`uname -s`
+FILE_EXT=
 if [ $OS_NAME = 'Darwin' ]; then
   FILE_EXT="''"
 fi
