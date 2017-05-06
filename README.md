@@ -19,6 +19,21 @@
 docker network create reverse_proxy
 docker network create backbone
 ```
+
+- envファイルで環境設定
+  - admin-tools/env.template を env にコピーし、内容を調整する
+
+- 必要に応じて以下のコマンドを実行
+  - HTTPSで通信する必要がなければ、enable-ssl.sh の実行は不要
+  - クライアント証明書の設定が必要なければ、enable-client-cert.sh の実行は不要
+  - ドメインが example.com から変更の必要がなければ、replace-domain.sh の実行は不要
+
+```
+./admin-tools/setup/enable-ssl.sh
+./admin-tools/setup/enable-client-cert.sh
+./admin-tools/setup/replace-domain.sh
+```
+
 - start-all-service.sh を実行
 ```
 ./start-all-service.sh
