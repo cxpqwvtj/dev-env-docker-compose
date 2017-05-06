@@ -4,6 +4,8 @@ set -eu
 
 pushd $(dirname ${BASH_SOURCE:-$0})
 
+source ../env
+
 COMMAND=sed
 OS_NAME=`uname -s`
 if [ $OS_NAME = 'Darwin' ]; then
@@ -20,3 +22,8 @@ CLIENT_CERT_DEF="\  # クライアント認証設定\n  ssl_verify_client on;\n 
 for file in `\find ../../nginx/nginx/config/conf.d -maxdepth 1 -type f -name "*.conf"`; do
   $COMMAND -i "/client_max_body_size/i $CLIENT_CERT_DEF" $file
 done
+
+eval "$COMMAND -i -e \"s!#- /usr/local/nginx/config/cacert.pem!- $CA_CERT_PATH!g\" ../../nginx/docker-compose.yml"
+eval "$COMMAND -i -e \"s!#- /usr/local/nginx/config/crl.pem!- $CRL_PATH!g\" ../../nginx/docker-compose.yml"
+
+popd

@@ -20,8 +20,12 @@ services:
       - ./nginx/config/conf.d:/etc/nginx/conf.d:ro
       - ./nginx/html:/usr/share/nginx/html:ro
       - ./data/log:/var/log/nginx
+      # サーバ証明書
       #- /usr/local/nginx/config/cert.pem:/usr/local/nginx/config/cert.pem
       #- /usr/local/nginx/config/cert.key:/usr/local/nginx/config/cert.key
+      # クライアント証明書
+      #- /usr/local/nginx/config/cacert.pem:/usr/local/nginx/config/cacert.pem
+      #- /usr/local/nginx/config/crl.pem:/usr/local/nginx/config/crl.pem
     networks:
       - reverse_proxy
 
