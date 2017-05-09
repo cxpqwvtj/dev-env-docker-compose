@@ -29,3 +29,9 @@ PUT /_template/logstash
 ```
 GET _template/logstash
 ```
+
+- 対象インデックスのマッピング確認
+
+```
+GET /logstash-XXXX.XX.XX
+```
