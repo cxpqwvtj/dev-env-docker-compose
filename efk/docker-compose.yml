@@ -4,25 +4,48 @@ services:
 #####################################################
 # Elasticsearch + fluentd + Kibana
 #####################################################
-  elasticsearch:
+  elasticsearch1:
     restart: always
     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
     environment:
       - TZ=Asia/Tokyo
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - http.host=0.0.0.0
-      - transport.host=127.0.0.1
+      # - transport.host=127.0.0.1
       - bootstrap.memory_lock=true
       - cluster.name=docker-cluster
       - xpack.security.enabled=false
-#    deploy:
-#      resources:
-#        limits:
-#          memory: 1g
-    expose:
-      - 9200
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    ports:
+      - 9200:9200
     volumes:
-      - ./data/elasticsearch:/usr/share/elasticsearch/data
+      - ./data/elasticsearch1:/usr/share/elasticsearch/data
+    networks:
+      - backbone
+
+  elasticsearch2:
+    restart: always
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
+    environment:
+      - TZ=Asia/Tokyo
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - http.host=0.0.0.0
+      # - transport.host=127.0.0.1
+      - bootstrap.memory_lock=true
+      - cluster.name=docker-cluster
+      - "discovery.zen.ping.unicast.hosts=elasticsearch1"
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    mem_limit: 1g
+    volumes:
+      - ./data/elasticsearch2:/usr/share/elasticsearch/data
     networks:
       - backbone
 
@@ -31,7 +54,9 @@ services:
     build:
       context: ./fluent
     depends_on:
-      - elasticsearch
+      - elasticsearch1
+    links:
+      - elasticsearch1:elasticsearch
     environment:
       - TZ=Asia/Tokyo
       - FLUENTD_CONF=fluent.conf
@@ -45,9 +70,9 @@ services:
     restart: always
     image: docker.elastic.co/kibana/kibana:5.4.0
     depends_on:
-      - elasticsearch
+      - elasticsearch1
     links:
-      - elasticsearch:elasticsearch
+      - elasticsearch1:elasticsearch
     environment:
       - TZ=Asia/Tokyo
       - ELASTICSEARCH_URL=http://elasticsearch:9200
