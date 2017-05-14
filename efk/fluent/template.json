@@ -1,0 +1,12 @@
+{
+  "template": "logstash-*",
+  "mappings": {
+    "fluent": {
+      "properties": {
+        "location": {
+          "type": "geo_point"
+        }
+      }
+    }
+  }
+}
