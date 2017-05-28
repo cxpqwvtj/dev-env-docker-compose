@@ -9,7 +9,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
     environment:
       - TZ=Asia/Tokyo
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
       - http.host=0.0.0.0
       # - transport.host=127.0.0.1
       - bootstrap.memory_lock=true
@@ -17,7 +17,7 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 1g
+    mem_limit: 2g
     volumes:
       - esdata1:/usr/share/elasticsearch/data
       - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
@@ -31,7 +31,7 @@ services:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.4.0
     environment:
       - TZ=Asia/Tokyo
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"
       - http.host=0.0.0.0
       # - transport.host=127.0.0.1
       - bootstrap.memory_lock=true
@@ -40,7 +40,7 @@ services:
       memlock:
         soft: -1
         hard: -1
-    mem_limit: 1g
+    mem_limit: 2g
     volumes:
       - esdata2:/usr/share/elasticsearch/data
       - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
