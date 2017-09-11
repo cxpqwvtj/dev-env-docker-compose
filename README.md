@@ -38,8 +38,6 @@ docker network create backbone
 ```
 ./start-all-service.sh
 ```
-- アクセス
-  - http://localhost
 
 ## サービス起動確認
 
