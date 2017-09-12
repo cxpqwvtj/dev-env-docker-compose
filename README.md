@@ -39,6 +39,14 @@ docker network create backbone
 ./start-all-service.sh
 ```
 
+## Redmineのプラグインインストール
+
+```
+docker exec -it {redmine-container-name} /bin/bash
+cd /home/redmine/custom
+./plugin-theme-install.sh
+```
+
 ## サービス起動確認
 
 - 現在は以下のサービスが立ち上がります
