@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nexus:
+    # Default credentials are: admin / admin123
+    restart: always
+    image: sonatype/nexus:2.14.5-02
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./data:/sonatype-work
+    networks:
+      - reverse_proxy
+
+networks:
+  reverse_proxy:
+    external:
+      name: reverse_proxy
