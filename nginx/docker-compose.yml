@@ -15,6 +15,7 @@ services:
       - project_jenkins_1:jenkins.example.com
       - project_rocketchat_1:chat.example.com
       - project_owncloud_1:owncloud.example.com
+      - nexus_nexus_1:nexus.example.com
     volumes:
       - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/config/conf.d:/etc/nginx/conf.d:ro
