@@ -6,6 +6,7 @@ services:
   gitlab-postgresql:
     restart: always
     image: sameersbn/postgresql:9.6-2
+    container_name: dets_gitlab_db
     volumes:
       - ./data/gitlab/postgresql:/var/lib/postgresql:Z
     environment:
@@ -19,6 +20,7 @@ services:
   gitlab:
     restart: always
     image: sameersbn/gitlab:9.5.4
+    container_name: dets_gitlab_app
     depends_on:
       - gitlab-postgresql
       - gitlab-redis
@@ -103,6 +105,7 @@ services:
   gitlab-redis:
     restart: always
     image: sameersbn/redis:latest
+    container_name: dets_gitlab_redis
     command:
       - --loglevel warning
     volumes:
@@ -116,6 +119,7 @@ services:
   redmine-postgresql:
     restart: always
     image: sameersbn/postgresql:9.6-2
+    container_name: dets_redmine_db
     environment:
       - DB_USER=redmine
       - DB_PASS=password
@@ -128,6 +132,7 @@ services:
   redmine:
     restart: always
     image: sameersbn/redmine:3.4.2
+    container_name: dets_redmine_app
     depends_on:
       - redmine-postgresql
     links:
@@ -195,6 +200,7 @@ services:
   jenkins:
     restart: always
     image: jenkins:2.46.2
+    container_name: dets_jenkins
     environment:
       - JENKINS_HOST=jenkins.example.com #change-it
       - JENKINS_OPTS=--prefix=
@@ -215,6 +221,7 @@ services:
   rocketchat:
     restart: always
     image: rocketchat/rocket.chat:0.58.2
+    container_name: dets_rocketchat_app
     environment:
       - PORT=3000
       - ROOT_URL=http://chat.example.com
@@ -236,6 +243,7 @@ services:
   rocketchat-mongodb:
     restart: always
     image: mongo:3.2
+    container_name: dets_rocketchat_db
     volumes:
       - ./data/rocketchat/db:/data/db
       - ./data/rocketchat/configdb:/data/configdb
@@ -244,6 +252,7 @@ services:
 
   rocketchat-hubot:
     image: rocketchat/hubot-rocketchat:latest
+    container_name: dets_rocketchat_hubot
     environment:
       - ROCKETCHAT_URL=rocketchat:3000
       - ROCKETCHAT_ROOM=GENERAL
@@ -269,6 +278,7 @@ services:
   owncloud:
     restart: always
     image: cxpqwvtj/owncloud-ldap:9.1.5-apache
+    container_name: dets_owncloud
     environment:
       - OWNCLOUD_BASE_PATH=
     external_links:

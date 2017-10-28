@@ -3,19 +3,20 @@ services:
   proxy:
     restart: always
     image: nginx:1.13.0
+    container_name: dets_nginx
     environment:
       - TZ=Asia/Tokyo
     ports:
       - 80:80
       - 443:443
     external_links:
-      - ldap_pocci-account-center_1:account.example.com
-      - project_gitlab_1:gitlab.example.com
-      - project_redmine_1:redmine.example.com
-      - project_jenkins_1:jenkins.example.com
-      - project_rocketchat_1:chat.example.com
-      - project_owncloud_1:owncloud.example.com
-      - nexus_nexus_1:nexus.example.com
+      - dets_account_center:account.example.com
+      - dets_gitlab_app:gitlab.example.com
+      - dets_redmine_app:redmine.example.com
+      - dets_jenkins:jenkins.example.com
+      - dets_rocketchat_app:chat.example.com
+      - dets_owncloud:owncloud.example.com
+      - dets_nexus:nexus.example.com
     volumes:
       - ./nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/config/conf.d:/etc/nginx/conf.d:ro

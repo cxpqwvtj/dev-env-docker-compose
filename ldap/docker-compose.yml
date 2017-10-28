@@ -3,6 +3,7 @@ services:
   openldap:
     restart: always
     image: dinkel/openldap:2.4.40
+    container_name: dets_openldap
     environment:
       - SLAPD_PASSWORD=mysecretpassword #change-it
       - SLAPD_DOMAIN=example.com #change-it
@@ -19,6 +20,7 @@ services:
   pocci-account-center:
     restart: always
     image: cxpqwvtj/pocci-account-center:latest
+    container_name: dets_account_center
     depends_on:
       - openldap
     links:

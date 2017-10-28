@@ -4,6 +4,7 @@ services:
     # Default credentials are: admin / admin123
     restart: always
     image: sonatype/nexus3:3.6.0
+    container_name: dets_nexus
     environment:
       - TZ=Asia/Tokyo
     volumes:
