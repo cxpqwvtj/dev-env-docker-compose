@@ -2,7 +2,7 @@ version: '2'
 services:
   proxy:
     restart: always
-    image: nginx:1.13.0
+    image: nginx:1.13.6
     container_name: dets_nginx
     environment:
       - TZ=Asia/Tokyo
