@@ -17,6 +17,7 @@ files=(
   ../../nginx/nginx/config/conf.d/jenkins.conf
   ../../nginx/nginx/config/conf.d/owncloud.conf
   ../../nginx/nginx/config/conf.d/redmine.conf
+  ../../nginx/nginx/config/conf.d/nexus.conf
 )
 
 OS_NAME=`uname -s`
